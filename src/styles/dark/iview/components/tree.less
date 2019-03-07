@@ -30,18 +30,15 @@
         color: @text-color;
         transition: all @transition-time @ease-in-out;
         &:hover {
-            background-color: tint(@primary-color, 90%);
+            background-color: tint(@primary-color, 30%);
         }
         &-selected, &-selected:hover{
-            background-color: tint(@primary-color, 80%);
+            background-color: tint(@primary-color, 0%);
         }
     }
     &-arrow{
         cursor: pointer;
-        width: 12px;
-        text-align: center;
-        display: inline-block;
-        i {
+        i{
             transition: all @transition-time @ease-in-out;
         }
         &-open{
@@ -49,12 +46,12 @@
                 transform: rotate(90deg);
             }
         }
-        //&-hidden{
-        //    cursor: auto;
-        //    i{
-        //        display: none;
-        //    }
-        //}
+        &-hidden{
+            cursor: auto;
+            i{
+                display: none;
+            }
+        }
         &-disabled{
             cursor: @cursor-disabled;
         }

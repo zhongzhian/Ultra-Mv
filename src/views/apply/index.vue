@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       width: '',
-      module: 'alarm',
+      module: 'apply',
     }
   },
   methods: {

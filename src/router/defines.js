@@ -13,42 +13,88 @@ export const appRouter = {
       component: () => import('../views/home'),
     },
     {
-      path: 'alarm',
-      name: 'alarm',
+      path: 'slmm',
+      name: 'slmm',
       icon: 'ios-bell',
-      label: '告警管理',
-      redirect: '/alarm/alarmList',
-      component: () => import('../views/alarm'),
+      label: '专线监控管理',
+      redirect: '/slmm/sllist',
+      component: () => import('../views/slmm'),
       children: [
         {
-          path: 'alarmList',
-          name: 'alarmList',
+          path: 'sllist',
+          name: 'sllist',
           icon: 'ios-bell',
-          label: '告警流水',
-          component: () => import('../views/alarm/AlarmList.vue')
+          label: '专线列表',
+          component: () => import('../views/slmm/list.vue')
         },
         {
-          path: 'alarmList2',
-          name: 'alarmList2',
+          path: 'slmonitor',
+          name: 'slmonitor',
           icon: 'ios-bell',
-          label: '告警流水2',
-          component: () => import('../views/alarm/AlarmList.vue'),
-          children: [
-            {
-              path: 'alarmList3',
-              name: 'alarmList3',
-              icon: 'ios-bell',
-              label: '告警流水3',
-              component: () => import('../views/alarm/AlarmList.vue'),
-            },
-            {
-              path: 'alarmList4',
-              name: 'alarmList4',
-              icon: 'ios-bell',
-              label: '告警流水4',
-              component: () => import('../views/alarm/AlarmSetting.vue'),
-            }
-          ]
+          label: '专线监控',
+          component: () => import('../views/slmm/monitor.vue')
+        },
+      ]
+    },
+    {
+      path: 'svqt',
+      name: 'svqt',
+      icon: 'ios-bell',
+      label: '服务质量监控',
+      redirect: '/svqt/qosmonitor',
+      component: () => import('../views/svqt'),
+      children: [
+        {
+          path: 'qosmonitor',
+          name: 'qosmonitor',
+          icon: 'ios-bell',
+          label: 'QOS服务质量监控',
+          component: () => import('../views/svqt/qosmonitor.vue')
+        },
+        {
+          path: 'slamonitor',
+          name: 'slamonitor',
+          icon: 'ios-bell',
+          label: 'SLA服务质量监控',
+          component: () => import('../views/svqt/slamonitor.vue')
+        },
+      ]
+    },
+    {
+      path: 'apply',
+      name: 'apply',
+      icon: 'ios-bell',
+      label: '申请管理',
+      redirect: '/apply/applylist',
+      component: () => import('../views/apply'),
+      children: [
+        {
+          path: 'applylist',
+          name: 'applylist',
+          icon: 'ios-bell',
+          label: '申请管理',
+          component: () => import('../views/apply/applylist.vue')
+        },
+        {
+          path: 'slmmapply',
+          name: 'slmmapply',
+          icon: 'ios-bell',
+          label: '专线监控申请',
+          component: () => import('../views/apply/slmmapply.vue')
+        },
+        {
+          path: 'editapply',
+          name: 'editapply',
+          icon: 'ios-bell',
+          label: '监控变更申请',
+          component: () => import('../views/apply/editapply.vue')
+        },
+        {
+          path: 'itapply',
+          name: 'itapply',
+          icon: 'ios-bell',
+          label: 'IT基础监控申请',
+          component: () => import('../views/apply/itapply.vue')
         },
       ]
     },
@@ -57,12 +103,12 @@ export const appRouter = {
 
 //不需要权限验证的通用路由
 export const commonRouters = [
-  {
-    path: '/login',
-    name: 'login',
-    label: '登录',
-    component: () => import('../views/login')
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   label: '登录',
+  //   component: () => import('../views/login')
+  // },
   {
     path: '/403',
     name: 'error-403',

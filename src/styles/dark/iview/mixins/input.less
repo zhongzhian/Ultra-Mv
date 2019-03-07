@@ -72,7 +72,6 @@
     textarea& {
         max-width: 100%;
         height: auto;
-        min-height: @input-height-base;
         vertical-align: bottom;
         font-size: @font-size-base;
     }
@@ -129,15 +128,11 @@
         //    border-radius: 0;
         //}
     }
-    &-with-prepend .@{inputClass},
-    &-with-prepend&-small .@{inputClass}
-    {
+    &-with-prepend .@{inputClass} {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
-    &-with-append .@{inputClass},
-    &-with-append&-small .@{inputClass}
-    {
+    &-with-append .@{inputClass} {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -148,7 +143,7 @@
         border-color: transparent;
         background-color: transparent;
         color: inherit;
-        margin: -(@input-padding-vertical-base + 2) (-@input-padding-horizontal);
+        margin: -(@input-padding-vertical-base + 1) (-@input-padding-horizontal);
     }
 
     &-prepend,
