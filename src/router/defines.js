@@ -58,6 +58,13 @@ export const appRouter = {
           label: 'SLA服务质量监控',
           component: () => import('../views/svqt/slamonitor.vue')
         },
+        {
+          path: 'ltslamonitor',
+          name: 'ltslamonitor',
+          icon: 'ios-bell',
+          label: 'SLA服务质量监控',
+          component: () => import('../views/svqt/ltslamonitor.vue')
+        },
       ]
     },
     {

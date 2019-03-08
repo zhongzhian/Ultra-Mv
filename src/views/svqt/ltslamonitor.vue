@@ -1,23 +1,22 @@
+// 联通网管sla服务质量监控
 <template>
-  <div class="qosmonitor">
+  <div class="slamonitor">
     <div class="top">
       <div class="normal-panel fl top-left">
         <div class="normal-panel-content">
-          <div class="normal-panel-title">客户QOS对比</div>
-          <p class="subheading"><span>2019/01/22 15:20</span><span>周期：20分钟</span></p>
+          <div class="normal-panel-title">客户SLA</div>
           <div id="contrastChart"></div>
         </div>
       </div>
       <div class="normal-panel fl top-right">
         <div class="normal-panel-content2">
-          <div class="normal-panel-title">指标TOP5</div>
+          <div class="normal-panel-title">SLA电路TOP5</div>
           <div class="normal-panel-switch">
             <table class="top5-switch-table" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="active">金</td>
-                <td>铂金</td>
-                <td>银</td>
-                <td>铜</td>
+                <td class="active">抖动</td>
+                <td>时延</td>
+                <td>丢包</td>
               </tr>
             </table>
           </div>
@@ -88,81 +87,71 @@
       },
       contrastChart() {
         var data = [{
-            kpi: "金",
-            name: "客户名称1",
+            kpi: "时延",
+            time: "10:00",
             value: 30
           },
           {
-            kpi: "铂金",
-            name: "客户名称1",
+            kpi: "丢包",
+            time: "10:00",
             value: 10
           },
           {
-            kpi: "银",
-            name: "客户名称1",
+            kpi: "抖动",
+            time: "10:00",
             value: 20
           },
           {
-            kpi: "铜",
-            name: "客户名称1",
-            value: 40
-          },
-          {
-            kpi: "金",
-            name: "客户名称2",
+            kpi: "时延",
+            time: "10:30",
             value: 10
           },
           {
-            kpi: "铂金",
-            name: "客户名称2",
-            value: 40
-          },
-          {
-            kpi: "银",
-            name: "客户名称2",
+            kpi: "抖动",
+            time: "10:30",
             value: 35
           },
           {
-            kpi: "铜",
-            name: "客户名称2",
-            value: 15
+            kpi: "丢包",
+            time: "10:30",
+            value: 40
           },
           {
-            kpi: "金",
-            name: "客户名称3",
+            kpi: "时延",
+            time: "11:00",
             value: 25
           },
           {
-            kpi: "铂金",
-            name: "客户名称3",
+            kpi: "丢包",
+            time: "11:00",
             value: 45
           },
           {
-            kpi: "银",
-            name: "客户名称3",
+            kpi: "抖动",
+            time: "11:00",
             value: 10
-          },
-          {
-            kpi: "铜",
-            name: "客户名称3",
-            value: 20
           }
         ];
-
         var chart = new G2.Chart({
           container: "contrastChart",
           forceFit: true,
           height: 250,
-          padding: ["auto", 20, 50, 48]
+          padding: ["auto", 48, 50, 48]
         });
         chart.source(data);
         chart.scale("value", {
           alias: ' ',
-          max: 50,
+          max: 75,
           min: 0,
           tickCount: 6
         });
-        chart.axis("name", {
+        chart.scale("percent", {
+          alias: ' ',
+          max: 75,
+          min: 0,
+          tickCount: 6
+        });
+        chart.axis("time", {
           label: {
             textStyle: {
               fill: "#aaaaaa"
@@ -174,14 +163,11 @@
             length: 0
           }
         });
-
         chart.axis("value", {
+          position: "left",
           label: {
             textStyle: {
               fill: "#aaaaaa"
-            },
-            formatter(text) {
-              return text + '%';
             }
           },
           title: {
@@ -193,22 +179,19 @@
           marker: "circle"
         });
         chart
-          .interval()
-          .position("name*value")
+          .line()
+          .position("time*value")
           .color('kpi', (cValue) => {
             let color = '';
             switch(cValue) {
-              case '金':
+              case '时延':
                 color = '#2387E6';
                 break;
-              case '铂金':
+              case '丢包':
                 color = '#22D0B1';
                 break;
-              case '银':
+              case '抖动':
                 color = '#FEF36B';
-                break;
-              case '铜':
-                color = '#EB6A7A';
                 break;
             }
             return color;
@@ -225,20 +208,12 @@
 </script>
 
 <style lang="less">
-  .qosmonitor {
+  .slamonitor {
     .top {
       height: 280px;
       .top-left {
         height: 280px;
         width: 70%;
-        .subheading {
-          text-align: left;
-          padding-left: 15px;
-          span {
-            margin-right: 20px;
-            color: #50B5EC;
-          }
-        }
       }
       .top-right {
         height: 280px;
