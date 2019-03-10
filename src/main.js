@@ -19,6 +19,9 @@ Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
 Vue.component('BTable', BTable)
 
+window._ = require('lodash')
+window.anime = require('animejs')
+
 const i18n = new VueI18n({
   locale: 'zh-CN',
   messages

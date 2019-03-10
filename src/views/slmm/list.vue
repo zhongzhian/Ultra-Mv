@@ -4,49 +4,64 @@
       <div class="normal-panel" style="width:100%;">
         <div class="normal-panel-content">
           <div class="normal-panel-title" style="height:50px;line-height: 30px;">专线列表</div>
-          <div class="home-table-condition">
-            <ul class="home-table-condition-ul">
-              <li>
-                <Dropdown trigger="click">
-                  <Button class="dropdown-btn" type="primary">下拉菜单</Button>
-                  <Icon class="dropdown-icon" type="ios-arrow-down"></Icon>
-                  <DropdownMenu class="dropdown-menu" slot="list">
-                    <DropdownItem>驴打滚</DropdownItem>
-                    <DropdownItem>炸酱面</DropdownItem>
-                    <!-- <DropdownItem disabled>豆汁儿</DropdownItem> -->
-                    <DropdownItem>冰糖葫芦</DropdownItem>
-                    <DropdownItem>北京烤鸭</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-                <!-- <select>
-                  <option>asdfasf</option>
-                </select>-->
+          <div class="slmm-table-condition">
+            <ul class="slmm-table-condition-ul">
+              <li>省份：
+                <comselect
+                  @coms-select-change="alarmSelect"
+                  :textLeft="true"
+                  :selectDatas="alarmSelectData"
+                  :selectValue="alarmSelectValue"
+                  :selectName="alarmSelectName"
+                />
               </li>
               <li>
-                <span>
-                  当前页：
-                  <label>15</label>
+                <span>状态：
+                  <comselect
+                    @coms-select-change="alarmSelect"
+                    :textLeft="true"
+                    :selectDatas="alarmSelectData"
+                    :selectValue="alarmSelectValue"
+                    :selectName="alarmSelectName"
+                  />
                 </span>
               </li>
               <li>
                 <span>
-                  总数：
-                  <label>15</label>
+                  <Input
+                    v-model="searchText"
+                    size="small"
+                    placeholder="请输入查询内容"
+                    style="width: 200px"
+                  />
                 </span>
               </li>
               <li>
-                <span class="home-table-condition-alarmpoint" style="background-color: #c4342b;"></span>
-                <label class="home-table-condition-alarmlabel">3</label>
-                <span class="home-table-condition-alarmpoint" style="background-color: #c16d01;"></span>
-                <label class="home-table-condition-alarmlabel">3</label>
-                <span class="home-table-condition-alarmpoint" style="background-color: #f9e265;"></span>
-                <label class="home-table-condition-alarmlabel">3</label>
-                <span class="home-table-condition-alarmpoint" style="background-color: #5dcbf1;"></span>
-                <label class="home-table-condition-alarmlabel">3</label>
+                <span>
+                  <Button size="small" class="condition-btn">查找</Button>
+                </span>
+              </li>
+              <li>
+                <span>
+                  <Button size="small" class="condition-btn">导出</Button>
+                </span>
               </li>
             </ul>
           </div>
-          <b-table :columns="columns1" :data="data1" :pageData="pageData"></b-table>
+          <div class="slmm-table-condition" style="margin-top:20px;">
+            <ul class="slmm-table-condition-ul">
+              <li>
+                <Checkbox v-model="single">待审核 15</Checkbox>
+              </li>
+              <li>
+                <Checkbox v-model="single">已驳回 1</Checkbox>
+              </li>
+              <li>
+                <Checkbox v-model="single">已完结 32</Checkbox>
+              </li>
+            </ul>
+          </div>
+          <b-table :columns="columns1" :data="data1" :pageData="pageData" :pageSize="pageSize"></b-table>
         </div>
       </div>
     </div>
@@ -54,15 +69,48 @@
 </template>
 
 <script>
+import comselect from "@/components/ComSelect.vue";
+
 export default {
+  components: { comselect },
   data() {
     return {
+      alarmSelectValue: "1",
+      alarmSelectName: "驴打滚",
+      alarmSelectData: [
+        {
+          name: "驴打滚",
+          value: "1"
+        },
+        {
+          name: "炸酱面",
+          value: "2"
+        },
+        {
+          name: "冰糖葫芦",
+          value: "3"
+        },
+        {
+          name: "北京烤鸭",
+          value: "4"
+        }
+      ],
+      searchText: "",
+      daishenhe: false,
+      yibohui: false,
+      yiwanjie: false,
       pageData: {
-        total: 0,
+        total: 4,
         current: 1,
         pageSize: 10
       },
+      pageSize: "small",
       columns1: [
+        {
+          type: "selection",
+          width: 60,
+          align: "center"
+        },
         {
           title: "Name",
           key: "name"
@@ -105,59 +153,48 @@ export default {
     };
   },
   mounted() {},
-  methods: {}
+  methods: {
+    alarmSelect(name) {
+      // console.log(name);
+      this.alarmSelectValue = name;
+      let aa = _.find(this.alarmSelectData, function(d) {
+        return d.value === name;
+      });
+      this.alarmSelectName = aa.name;
+    }
+  }
 };
 </script>
 
-<style lang="less">
-.home-table-condition-alarmpoint {
-  background-color: red;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
-}
-.home-table-condition-alarmlabel {
-  margin-right: 20px;
-}
-
-.home-table-condition {
-  position: absolute;
-  right: 0;
-  top: 0;
-  left: 200px;
-}
-.home-table-condition-ul {
-  list-style: none;
-  font-size: 12px;
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-}
-.home-table-condition-ul li {
-  float: left;
-  margin-right: 30px;
-  line-height: 30px;
-}
-.dropdown-btn {
-  background-color: #161941;
-  border: 1px solid #2a6893;
-  font-size: 12px;
-  color: #50b5ec;
-  border-radius: 2px;
-  padding: 4px 8px;
-  text-align: left;
-  width: 200px;
-}
-.dropdown-icon {
-  font-size: 14px;
-  color: #50b5ec;
-  margin-left: -20px;
-  vertical-align: middle;
-}
-.dropdown-menu {
-  width: 200px;
-  left: 0;
+<style lang="less" scoped>
+.slmm-table-condition {
+  position: relative;
+  border-top: solid 1px #2a6893;
+  border-bottom: solid 1px #2a6893;
+  &-ul {
+    list-style: none;
+    font-size: 12px;
+    width: 100%;
+    height: 50px;
+    padding: 10px 20px;
+  }
+  &-ul > li {
+    float: left;
+    margin-right: 30px;
+    line-height: 30px;
+  }
+  &-alarmpoint {
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  &-alarmlabel {
+    margin-right: 20px;
+    font-size: 12px;
+    color: #ccc !important;
+  }
 }
 </style>

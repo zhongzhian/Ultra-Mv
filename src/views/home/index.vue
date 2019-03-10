@@ -23,33 +23,38 @@
       <div class="normal-panel fl" style="width:30%;">
         <div class="normal-panel-content2" style="height:290px;margin-bottom:20px;">
           <div class="normal-panel-title">指标TOP5</div>
-          <div class="normal-panel-switch">
+          <!-- <switchtab :swtichDatas="top5Datas" :sindex="top5Index" @coms-switch-change="changeTop5"/> -->
+          <div class="home-top5-switch">
             <Icon
+              @click="top5switch=0"
               color="#50b5ec"
               size="25"
-              style="vertical-align: top;line-height: 30px;"
+              style="vertical-align: top;line-height: 30px;position: absolute;left: 15px;cursor:pointer;"
               type="ios-arrow-back"
             />
             <table class="home-top5-switch-table" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="active">CPU</td>
-                <td>内存</td>
-                <td>端口出</td>
-                <td>端口入</td>
-                <td>带宽利用率</td>
+              <tr v-if="top5switch === 0">
+                <td
+                  @click="changeTop5(s)"
+                  v-for="s in top5Datas[0]"
+                  :key="s.key"
+                  :class="{'active':s.key === top5Index}"
+                >{{s.name}}</td>
+              </tr>
+              <tr v-if="top5switch === 1">
+                <td
+                  @click="changeTop5(s)"
+                  v-for="s in top5Datas[1]"
+                  :key="s.key"
+                  :class="{'active':s.key === top5Index}"
+                >{{s.name}}</td>
               </tr>
             </table>
-            <!-- <RadioGroup style="margin:0 10px;" v-model="button6" type="button" size="small">
-              <Radio label="CPU"></Radio>
-              <Radio label="内存"></Radio>
-              <Radio label="端口出"></Radio>
-              <Radio label="端口入"></Radio>
-              <Radio label="带宽利用率"></Radio>
-            </RadioGroup>-->
             <Icon
+              @click="top5switch=1"
               color="#50b5ec"
               size="25"
-              style="vertical-align: top;line-height: 30px;"
+              style="vertical-align: top;line-height: 30px;position: absolute;right: 15px;cursor:pointer;"
               type="ios-arrow-forward"
             />
           </div>
@@ -75,39 +80,32 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:20px;height:250px;">
-      <div class="normal-panel fl" style="width:100%;height:250px;">
+    <div style="margin-top:20px;height:350px;">
+      <div class="normal-panel fl" style="width:100%;height:350px;">
         <div class="normal-panel-content2">
           <div class="normal-panel-title" style="height:50px;line-height: 30px;">活动告警</div>
           <!-- <b-table :columns="columns1" :data="data1" :pageData="pageData"></b-table> -->
           <div class="home-table-condition">
             <ul class="home-table-condition-ul">
               <li>
-                <Dropdown trigger="click">
-                  <Button class="dropdown-btn" type="primary">下拉菜单</Button>
-                  <Icon class="dropdown-icon" type="ios-arrow-down"></Icon>
-                  <DropdownMenu class="dropdown-menu" slot="list">
-                    <DropdownItem>驴打滚</DropdownItem>
-                    <DropdownItem>炸酱面</DropdownItem>
-                    <!-- <DropdownItem disabled>豆汁儿</DropdownItem> -->
-                    <DropdownItem>冰糖葫芦</DropdownItem>
-                    <DropdownItem>北京烤鸭</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-                <!-- <select>
-                  <option>asdfasf</option>
-                </select>-->
+                <comselect
+                  @coms-select-change="alarmSelect"
+                  :textLeft="true"
+                  :selectDatas="alarmSelectData"
+                  :selectValue="alarmSelectValue"
+                  :selectName="alarmSelectName"
+                />
               </li>
               <li>
                 <span>
                   当前页：
-                  <label>15</label>
+                  <label class="alarmlabel">15</label>
                 </span>
               </li>
               <li>
                 <span>
                   总数：
-                  <label>15</label>
+                  <label class="alarmlabel">15</label>
                 </span>
               </li>
               <li>
@@ -122,7 +120,7 @@
               </li>
             </ul>
           </div>
-          <Table height="300" :columns="alarmColumns" :data="alarmData"></Table>
+          <Table stripe height="300" :columns="alarmColumns" :data="alarmData"></Table>
         </div>
       </div>
     </div>
@@ -134,10 +132,61 @@
 import G2 from "@antv/g2";
 import { View } from "@antv/data-set";
 import data from "./diamond.json";
+// import switchtab from "@/components/SwitchTab.vue";
+import comselect from "@/components/ComSelect.vue";
 
 export default {
+  components: { comselect },
   data() {
     return {
+      top5Datas: [
+        [
+          {
+            name: "CPU",
+            key: "1"
+          },
+          {
+            name: "内存",
+            key: "2"
+          },
+          {
+            name: "端口出",
+            key: "3"
+          },
+          {
+            name: "端口入",
+            key: "4"
+          },
+          {
+            name: "带宽利用率",
+            key: "5"
+          }
+        ],
+        [
+          {
+            name: "QOS",
+            key: "6"
+          },
+          {
+            name: "SLA",
+            key: "7"
+          },
+          {
+            name: "时延",
+            key: "8"
+          },
+          {
+            name: "抖动",
+            key: "9"
+          },
+          {
+            name: "丢包",
+            key: "10"
+          }
+        ]
+      ],
+      top5switch: 0,
+      top5Index: "2",
       row1kpis: [
         {
           img: "/static/images/paidan.png",
@@ -301,6 +350,26 @@ export default {
           value: 250,
           name: "普通告警"
         }
+      ],
+      alarmSelectValue: "1",
+      alarmSelectName: "驴打滚",
+      alarmSelectData: [
+        {
+          name: "驴打滚",
+          value: "1"
+        },
+        {
+          name: "炸酱面",
+          value: "2"
+        },
+        {
+          name: "冰糖葫芦",
+          value: "3"
+        },
+        {
+          name: "北京烤鸭",
+          value: "4"
+        }
       ]
     };
   },
@@ -313,6 +382,18 @@ export default {
     this.appTop5();
   },
   methods: {
+    alarmSelect(name) {
+      // console.log(name);
+      this.alarmSelectValue = name;
+      let aa = _.find(this.alarmSelectData, function(d) {
+        return d.value === name;
+      });
+      this.alarmSelectName = aa.name;
+    },
+    changeTop5(s) {
+      // console.log(s);
+      this.top5Index = s.key;
+    },
     kpiTop5() {
       var data = [
         {
@@ -340,7 +421,7 @@ export default {
         container: "kpiTop5Chart",
         forceFit: true,
         height: 230,
-        padding: ["auto", "auto", "auto", "auto"]
+        padding: ["auto", "auto", 30, "auto"]
       });
       chart.source(data);
       chart.axis("country", {
@@ -397,7 +478,7 @@ export default {
         })
         .select(false)
         .style({
-          lineWidth: 1,
+          lineWidth: 0,
           stroke: "#fff"
         });
 
@@ -442,7 +523,7 @@ export default {
         })
         .select(false)
         .style({
-          lineWidth: 1,
+          lineWidth: 0,
           stroke: "#fff"
         });
 
@@ -561,7 +642,7 @@ export default {
         container: "appTop5Chart",
         forceFit: true,
         height: 170,
-        padding: ["auto", "auto", "auto", "auto"]
+        padding: ["auto", "auto", 30, "auto"]
       });
       chart.source(data);
       chart.axis("country", {
@@ -577,7 +658,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .home-top5-switch-table {
   border-collapse: collapse;
   font-size: 12px;
@@ -585,66 +666,51 @@ export default {
   border-radius: 2px;
   background-color: #161941;
   margin: 0 10px;
+  td {
+    border: 1px solid #2a6893;
+    border-collapse: collapse;
+    padding: 4px 8px;
+    color: #2a6893;
+    cursor: pointer;
+  }
+  td.active {
+    color: #50b5ec;
+    font-weight: 600;
+    background-color: #0e2b61;
+  }
 }
-.home-top5-switch-table td {
-  border: 1px solid #2a6893;
-  border-collapse: collapse;
-  padding: 4px 8px;
-  color: #2a6893;
-}
-.home-top5-switch-table td.active {
-  color: #50b5ec;
-  font-weight: 600;
-  background-color: #0e2b61;
-}
-.home-table-condition-alarmpoint {
-  background-color: red;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
-}
-.home-table-condition-alarmlabel {
-  margin-right: 20px;
-}
-
-.home-table-condition {
-  position: absolute;
-  right: 0;
-  top: 0;
-  left: 200px;
-}
-.home-table-condition-ul {
-  list-style: none;
-  font-size: 12px;
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-}
-.home-table-condition-ul li {
-  float: left;
-  margin-right: 30px;
-  line-height: 30px;
-}
-.dropdown-btn {
-  background-color: #161941;
-  border: 1px solid #2a6893;
-  font-size: 12px;
-  color: #50b5ec;
-  border-radius: 2px;
-  padding: 4px 8px;
-  text-align: left;
-  width: 200px;
-}
-.dropdown-icon {
-  font-size: 14px;
-  color: #50b5ec;
-  margin-left: -20px;
-  vertical-align: middle;
-}
-.dropdown-menu{
-  width:200px;
-  left:0;
-}
+// .home-table-condition {
+//   position: absolute;
+//   right: 0;
+//   top: 0;
+//   width: 700px;
+//   &-ul {
+//     list-style: none;
+//     font-size: 12px;
+//     width: 100%;
+//     height: 50px;
+//     padding: 10px;
+//   }
+//   &-ul > li {
+//     float: left;
+//     margin-right: 30px;
+//     line-height: 30px;
+//     label {
+//       color: #50b5ec;
+//     }
+//   }
+//   &-alarmpoint {
+//     background-color: red;
+//     width: 10px;
+//     height: 10px;
+//     border-radius: 50%;
+//     display: inline-block;
+//     margin-right: 5px;
+//   }
+//   &-alarmlabel {
+//     margin-right: 20px;
+//     font-size: 12px;
+//     color:#ccc !important;
+//   }
+// }
 </style>
