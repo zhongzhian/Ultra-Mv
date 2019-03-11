@@ -27,8 +27,23 @@
     </div>
     <div class="normal-panel fl bottom">
       <div class="normal-panel-content2">
-        <div class="normal-panel-title" style="height:50px;line-height: 30px;">活动告警</div>
-        <Table></Table>
+        <div class="normal-panel-title">活动告警</div>
+        <div class="query-condition">
+          <label>省份：</label>
+          <Select clearable style="width:150px">
+            <Option :value="1" :key="1">1</Option>
+            <Option :value="2" :key="2">2</Option>
+          </Select>
+          <label>客户：</label>
+          <Select clearable style="width:150px">
+            <Option :value="1" :key="1">1</Option>
+            <Option :value="2" :key="2">2</Option>
+          </Select>
+          <Input class="query-key" placeholder="请输入查询内容" style="width: 300px" />
+          <Button type="primary">查找</Button>
+          <Button type="primary">导出</Button>
+        </div>
+        <b-table class="data-table" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData"></b-table>
       </div>
     </div>
   </div>
@@ -39,13 +54,60 @@
 
   export default {
     data() {
-      return {};
+      return {
+        pageData: {
+          total: 4,
+          current: 1,
+          pageSize: 10
+        },
+        columns: [{
+            title: "Name",
+            key: "name"
+          },
+          {
+            title: "Age",
+            key: "age"
+          },
+          {
+            title: "Address",
+            key: "address"
+          }
+        ],
+        data: [{
+            name: "John Brown",
+            age: 18,
+            address: "New York No. 1 Lake Park",
+            date: "2016-10-03"
+          },
+          {
+            name: "Jim Green",
+            age: 24,
+            address: "London No. 1 Lake Park",
+            date: "2016-10-01"
+          },
+          {
+            name: "Joe Black",
+            age: 30,
+            address: "Sydney No. 1 Lake Park",
+            date: "2016-10-02"
+          },
+          {
+            name: "Jon Snow",
+            age: 26,
+            address: "Ottawa No. 2 Lake Park",
+            date: "2016-10-04"
+          }
+        ],
+      };
     },
     mounted() {
       this.kpiTop5();
       this.contrastChart();
     },
     methods: {
+      getData() {
+
+      },
       kpiTop5() {
         var data = [{
             key: "客户电路名称1",
@@ -226,6 +288,65 @@
 
 <style lang="less">
   .qosmonitor {
+    .query-condition {
+      /*background-color: #1A2440;*/
+      height: 50px;
+      text-align: left;
+      line-height: 50px;
+      /*border-top: solid 1px rgba(143, 205, 240, 0.25);
+      border-bottom: solid 1px rgba(143, 205, 240, 0.25);*/
+      label {
+        margin-left: 15px;
+      }
+      .ivu-input-wrapper.query-key {
+        margin-left: 30px;
+        .ivu-input {
+          border: 1px solid rgba(143, 205, 240, 0.25);
+          height: 28px;
+          background-color: #161941;
+          color: #53c2f8;
+          border-radius: 1px;
+        }
+        .ivu-input-icon {
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+          color: #53c2f8;
+        }
+      }
+      .ivu-select {
+        color: #53c2f8;
+        .ivu-select-selection {
+          height: 28px;
+          border: 1px solid rgba(143, 205, 240, 0.25);
+          background-color: #161941;
+          border-radius: 1px;
+        }
+        .ivu-select-placeholder,
+        .ivu-select-selected-value {
+          height: 28px;
+          line-height: 28px;
+          color: #53c2f8;
+          text-align: center;
+        }
+        .ivu-select-placeholder {
+          color: #3175a4;
+        }
+        .ivu-icon {
+          color: #53c2f8;
+        }
+      }
+      .ivu-btn.ivu-btn-primary {
+        height: 28px;
+        line-height: 28px;
+        color: #53c2f8;
+        border: 1px solid rgba(143, 205, 240, 0.25);
+        border-radius: 1px;
+        background-color: #043171;
+        padding: 0 15px;
+        margin-left: 10px;
+      }
+    }
     .top {
       height: 280px;
       .top-left {
@@ -247,7 +368,7 @@
     }
     .bottom {
       margin: 20px 0;
-      height: 500px;
+      width: 100%;
     }
     .top5-switch-table {
       border-collapse: collapse;
@@ -268,6 +389,9 @@
       color: #50b5ec;
       font-weight: 600;
       background-color: #0e2b61;
+    }
+    .ivu-table-header {
+      color: #9798b8;
     }
   }
 </style>
