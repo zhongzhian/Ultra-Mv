@@ -93,7 +93,6 @@
                   :textLeft="true"
                   :selectDatas="alarmSelectData"
                   :selectValue="alarmSelectValue"
-                  :selectName="alarmSelectName"
                 />
               </li>
               <li>
@@ -352,7 +351,6 @@ export default {
         }
       ],
       alarmSelectValue: "1",
-      alarmSelectName: "驴打滚",
       alarmSelectData: [
         {
           name: "驴打滚",
@@ -383,12 +381,7 @@ export default {
   },
   methods: {
     alarmSelect(name) {
-      // console.log(name);
-      this.alarmSelectValue = name;
-      let aa = _.find(this.alarmSelectData, function(d) {
-        return d.value === name;
-      });
-      this.alarmSelectName = aa.name;
+      console.log("do something");
     },
     changeTop5(s) {
       // console.log(s);

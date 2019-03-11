@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: ["selectDatas", "selectValue", "selectName", "textLeft"],
+  props: ["selectDatas", "selectValue", "textLeft"],
   data() {
     return {
       // textLeft: false,
@@ -54,13 +54,9 @@ export default {
   },
   methods: {
     selectClick(name) {
-      console.log(name);
+      // console.log(name);
       // this.selectValue = name;
-      // let aa = _.find(this.selectDatas, function(d) {
-      //   return d.value === name;
-      // });
-      // this.selectName = aa.name;
-      // this.$emit("coms-select-change", name);
+      this.$emit("coms-select-change", name);
     }
   }
 };
