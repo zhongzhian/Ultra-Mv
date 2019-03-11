@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="normal-panel fl" style="width:30%;">
-        <div class="normal-panel-content2" style="height:290px;margin-bottom:20px;">
+        <div class="normal-panel-content" style="height:290px;margin-bottom:20px;">
           <div class="normal-panel-title">指标TOP5</div>
           <!-- <switchtab :swtichDatas="top5Datas" :sindex="top5Index" @coms-switch-change="changeTop5"/> -->
           <div class="home-top5-switch">
@@ -60,7 +60,7 @@
           </div>
           <div id="kpiTop5Chart"></div>
         </div>
-        <div class="normal-panel-content2" style="height:290px;">
+        <div class="normal-panel-content" style="height:290px;">
           <div class="normal-panel-title">告警统计</div>
           <div id="alarmChart"></div>
         </div>
@@ -68,13 +68,13 @@
     </div>
     <div style="margin-top:20px;height:200px;">
       <div class="normal-panel fl" style="width:70%;height:200px;">
-        <div class="normal-panel-content2">
+        <div class="normal-panel-content">
           <div class="normal-panel-title">各省份专线统计</div>
           <div id="proviceChart"></div>
         </div>
       </div>
       <div class="normal-panel fl" style="width:30%;">
-        <div class="normal-panel-content2" style="height:200px;">
+        <div class="normal-panel-content" style="height:200px;">
           <div class="normal-panel-title">应用流量排名TOP5</div>
           <div id="appTop5Chart"></div>
         </div>
@@ -82,7 +82,7 @@
     </div>
     <div style="margin-top:20px;height:350px;">
       <div class="normal-panel fl" style="width:100%;height:350px;">
-        <div class="normal-panel-content2">
+        <div class="normal-panel-content">
           <div class="normal-panel-title" style="height:50px;line-height: 30px;">活动告警</div>
           <!-- <b-table :columns="columns1" :data="data1" :pageData="pageData"></b-table> -->
           <div class="home-table-condition">
@@ -438,7 +438,7 @@ export default {
         container: "alarmChart",
         forceFit: true,
         height: 250,
-        padding: [20, 0, 20, 0]
+        padding: [20, 0, 40, 0]
       });
       chart.source(dv, {
         percent: {
@@ -449,7 +449,7 @@ export default {
         }
       });
       chart.coord("theta", {
-        radius: 0.6
+        radius: 0.57
       });
       chart.tooltip({
         showTitle: false
@@ -499,8 +499,8 @@ export default {
         }
       });
       outterView.coord("theta", {
-        innerRadius: 0.9,
-        radius: 1
+        innerRadius: 0.88,
+        radius: 0.9
       });
       outterView
         .intervalStack()
