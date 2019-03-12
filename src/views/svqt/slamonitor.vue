@@ -1,16 +1,16 @@
-// sla服务质量监控
+// 网管sla服务质量监控
 <template>
   <div class="slamonitor">
     <div class="top">
       <div class="normal-panel fl top-left">
         <div class="normal-panel-content">
-          <div class="normal-panel-title">客户SLA服务质量</div>
+          <div class="normal-panel-title">客户SLA</div>
           <div id="contrastChart"></div>
         </div>
       </div>
       <div class="normal-panel fl top-right">
         <div class="normal-panel-content2">
-          <div class="normal-panel-title">指标TOP5</div>
+          <div class="normal-panel-title">SLA电路TOP5</div>
           <div class="normal-panel-switch">
             <table class="top5-switch-table" cellspacing="0" cellpadding="0">
               <tr>
@@ -33,16 +33,11 @@
             <Option :value="1" :key="1">1</Option>
             <Option :value="2" :key="2">2</Option>
           </Select>
-          <label>客户：</label>
-          <Select clearable style="width:150px">
-            <Option :value="1" :key="1">1</Option>
-            <Option :value="2" :key="2">2</Option>
-          </Select>
           <Input class="query-key" placeholder="请输入查询内容" style="width: 300px" />
           <Button type="primary">查找</Button>
           <Button type="primary">导出</Button>
         </div>
-        <b-table class="data-table" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData"></b-table>
+        <b-table class="data-table" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData" pageSize="small"></b-table>
       </div>
     </div>
   </div>
@@ -148,61 +143,59 @@
         chart.render();
       },
       contrastChart() {
-        var data1 = [{
+        var data = [{
             kpi: "时延",
-            name: "客户名称1",
+            time: "10:00",
             value: 30
           },
           {
             kpi: "丢包",
-            name: "客户名称1",
-            percent: 10
-          },
-          {
-            kpi: "时延",
-            name: "客户名称2",
+            time: "10:00",
             value: 10
           },
           {
-            kpi: "丢包",
-            name: "客户名称2",
-            percent: 40
+            kpi: "抖动",
+            time: "10:00",
+            value: 20
           },
-
           {
             kpi: "时延",
-            name: "客户名称3",
+            time: "10:30",
+            value: 10
+          },
+          {
+            kpi: "抖动",
+            time: "10:30",
+            value: 35
+          },
+          {
+            kpi: "丢包",
+            time: "10:30",
+            value: 40
+          },
+          {
+            kpi: "时延",
+            time: "11:00",
             value: 25
           },
           {
             kpi: "丢包",
-            name: "客户名称3",
-            percent: 45
-          }
-        ];
-        var data2 = [{
-            kpi: "抖动",
-            name: "客户名称1",
-            value: 20
+            time: "11:00",
+            value: 45
           },
           {
             kpi: "抖动",
-            name: "客户名称2",
-            value: 35
-          },
-          {
-            kpi: "抖动",
-            name: "客户名称3",
+            time: "11:00",
             value: 10
           }
         ];
-
         var chart = new G2.Chart({
           container: "contrastChart",
           forceFit: true,
           height: 250,
           padding: ["auto", 48, 50, 48]
         });
+        chart.source(data);
         chart.scale("value", {
           alias: ' ',
           max: 75,
@@ -211,11 +204,11 @@
         });
         chart.scale("percent", {
           alias: ' ',
-          max: 50,
+          max: 75,
           min: 0,
           tickCount: 6
         });
-        chart.axis("name", {
+        chart.axis("time", {
           label: {
             textStyle: {
               fill: "#aaaaaa"
@@ -238,81 +231,27 @@
             offset: 50
           }
         });
-        chart.axis("percent", {
-          position: "right",
-          label: {
-            textStyle: {
-              fill: "#aaaaaa"
-            },
-            formatter(text) {
-              return text + '%';
-            }
-          },
-          title: {
-            offset: 50
-          }
-        });
         chart.legend({
           position: "top-right",
           marker: "circle"
         });
-        var view1 = chart.view();
-        view1.source(data1);
-        view1
-          .interval()
-          .position("name*value")
-          .color('kpi', (cValue) => {
-            let color = '';
-            switch(cValue) {
-              case '时延':
-                color = '#2387E6';
-                break;
-              case '丢包':
-                color = '#22D0B1';
-                break;
-              case '抖动':
-                color = '#FEF36B';
-                break;
-            }
-            return color;
-          })
-          .opacity(1)
-          .adjust([{
-            type: "dodge",
-            marginRatio: 1 / 32
-          }]);
-        var view2 = chart.view();
-        view2.source(data1);
-        view2
-          .interval()
-          .position("name*percent")
-          .color('kpi', (cValue) => {
-            let color = '';
-            switch(cValue) {
-              case '时延':
-                color = '#2387E6';
-                break;
-              case '丢包':
-                color = '#22D0B1';
-                break;
-              case '抖动':
-                color = '#FEF36B';
-                break;
-            }
-            return color;
-          })
-          .opacity(1)
-          .adjust([{
-            type: "dodge",
-            marginRatio: 1 / 32
-          }]);
-        var view3 = chart.view();
-        view3.source(data2);
-        view3
+        chart
           .line()
-          .position("name*value")
+          .position("time*value")
           .color('kpi', (cValue) => {
-            return '#FEF36B';
+            let color = '';
+            switch(cValue) {
+              case '时延':
+                color = '#2387E6';
+                break;
+              case '丢包':
+                color = '#22D0B1';
+                break;
+              case '抖动':
+                color = '#FEF36B';
+                break;
+            }
+            return color;
           })
           .opacity(1)
           .adjust([{

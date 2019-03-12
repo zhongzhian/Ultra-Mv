@@ -170,7 +170,7 @@
         color: #F4CCA8;
         position: absolute;
         left: 50%;
-        padding-left: 120px;
+        margin-left: 120px;
       }
       margin-top: 10px;
       line-height: 50px;
@@ -204,13 +204,15 @@
       padding-left: 25px;
       border-top: solid 1px rgba(143, 205, 240, 0.25);
       border-bottom: solid 1px rgba(143, 205, 240, 0.25);
-      background-color: #161941;
+      background-color: #1A2440;
       line-height: 50px;
     }
     .icmp-content {
-      background-color: #161941;
+      background-color: #1A2440;
       height: 60px;
       line-height: 60px;
+      margin-bottom: 20px;
+      border-bottom: solid 1px rgba(143, 205, 240, 0.25);
     }
     .normal-panel-title {
       height: 50px;
@@ -280,6 +282,9 @@
       min-height: 50px;
       padding: 25px;
       text-align: left;
+      background-color: #1A2440;
+      margin-bottom: 20px;
+      border-bottom: solid 1px rgba(143, 205, 240, 0.25);
       .ivu-btn.ivu-btn-primary {
         height: 28px;
         line-height: 28px;

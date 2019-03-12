@@ -6,6 +6,13 @@ export const appRouter = {
   redirect: '/home',
   children: [
     {
+      path: 'approval',
+      name: 'approval',
+      icon: 'ios-bell',
+      label: '审批管理',
+      component: () => import('../views/approval'),
+    },
+    {
       path: 'home',
       name: 'home',
       icon: 'home',
@@ -50,6 +57,13 @@ export const appRouter = {
           icon: 'ios-bell',
           label: 'QOS服务质量监控',
           component: () => import('../views/svqt/qosmonitor.vue')
+        },
+        {
+          path: 'ltqosmonitor',
+          name: 'ltqosmonitor',
+          icon: 'ios-bell',
+          label: 'QOS服务质量监控',
+          component: () => import('../views/svqt/ltqosmonitor.vue')
         },
         {
           path: 'slamonitor',

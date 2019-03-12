@@ -1,9 +1,10 @@
 <template>
-  <div class="qosmonitor">
+  <div class="ltqosmonitor">
     <div class="top">
       <div class="normal-panel fl top-left">
         <div class="normal-panel-content">
-          <div class="normal-panel-title">QOS趋势</div>
+          <div class="normal-panel-title">客户QOS对比</div>
+          <p class="subheading"><span>2019/01/22 15:20</span><span>周期：20分钟</span></p>
           <div id="contrastChart"></div>
         </div>
       </div>
@@ -29,6 +30,11 @@
         <div class="normal-panel-title">活动告警</div>
         <div class="query-condition">
           <label>省份：</label>
+          <Select clearable style="width:150px">
+            <Option :value="1" :key="1">1</Option>
+            <Option :value="2" :key="2">2</Option>
+          </Select>
+          <label>客户：</label>
           <Select clearable style="width:150px">
             <Option :value="1" :key="1">1</Option>
             <Option :value="2" :key="2">2</Option>
@@ -145,62 +151,62 @@
       contrastChart() {
         var data = [{
             kpi: "金",
-            time: "10:00",
+            name: "客户名称1",
             value: 30
           },
           {
             kpi: "铂金",
-            time: "10:00",
+            name: "客户名称1",
             value: 10
           },
           {
             kpi: "银",
-            time: "10:00",
+            name: "客户名称1",
             value: 20
           },
           {
             kpi: "铜",
-            time: "10:00",
+            name: "客户名称1",
             value: 40
           },
           {
             kpi: "金",
-            time: "10:30",
+            name: "客户名称2",
             value: 10
           },
           {
             kpi: "铂金",
-            time: "10:30",
+            name: "客户名称2",
             value: 40
           },
           {
             kpi: "银",
-            time: "10:30",
+            name: "客户名称2",
             value: 35
           },
           {
             kpi: "铜",
-            time: "10:30",
+            name: "客户名称2",
             value: 15
           },
           {
             kpi: "金",
-            time: "11:00",
+            name: "客户名称3",
             value: 25
           },
           {
             kpi: "铂金",
-            time: "11:00",
+            name: "客户名称3",
             value: 45
           },
           {
             kpi: "银",
-            time: "11:00",
+            name: "客户名称3",
             value: 10
           },
           {
             kpi: "铜",
-            time: "11:00",
+            name: "客户名称3",
             value: 20
           }
         ];
@@ -214,11 +220,11 @@
         chart.source(data);
         chart.scale("value", {
           alias: ' ',
-          max: 75,
+          max: 50,
           min: 0,
           tickCount: 6
         });
-        chart.axis("time", {
+        chart.axis("name", {
           label: {
             textStyle: {
               fill: "#aaaaaa"
@@ -235,6 +241,9 @@
           label: {
             textStyle: {
               fill: "#aaaaaa"
+            },
+            formatter(text) {
+              return text + '%';
             }
           },
           title: {
@@ -246,8 +255,8 @@
           marker: "circle"
         });
         chart
-          .line()
-          .position("time*value")
+          .interval()
+          .position("name*value")
           .color('kpi', (cValue) => {
             let color = '';
             switch(cValue) {
@@ -278,7 +287,7 @@
 </script>
 
 <style lang="less">
-  .qosmonitor {
+  .ltqosmonitor {
     .query-condition {
       /*background-color: #1A2440;*/
       height: 50px;

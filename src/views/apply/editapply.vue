@@ -149,7 +149,7 @@
         color: #F4CCA8;
         position: absolute;
         left: 50%;
-        padding-left: 120px;
+        margin-left: 120px;
       }
       margin-top: 10px;
       line-height: 50px;
@@ -185,9 +185,11 @@
       border-bottom: solid 1px rgba(143, 205, 240, 0.25);
       margin-bottom: 20px;
       .one-item {
-        background-color: #212D52;
         padding: 10px;
         border-bottom: 1px dotted rgba(143, 205, 240, 0.25);
+        .normal-panel-content {
+          background-color: #212D52;
+        }
         p {
           height: 35px;
           line-height: 35px;
@@ -196,6 +198,7 @@
             float: left;
             margin-left: 10px;
             margin-top: 7px;
+            cursor: pointer;
           }
           .ivu-icon-checkmark-circled,
           .ivu-icon-close-circled {
@@ -206,6 +209,7 @@
             margin-left: -150px;
           }
           span {
+            cursor: pointer;
             float: right;
             margin-right: 10px;
             color: #9BCFFD;

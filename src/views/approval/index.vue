@@ -1,9 +1,9 @@
 <template>
-  <div class="normal-panel applylist">
+  <div class="normal-panel approval">
     <div class="normal-panel-content">
-      <div class="normal-panel-title">申请管理</div>
+      <div class="normal-panel-title">审批管理</div>
       <div class="query-condition">
-        <label>申请时间区间：</label>
+        <label>时间区间：</label>
         <DatePicker type="daterange" placement="bottom-end" placeholder="请选择" style="width: 200px"></DatePicker>
         <label>申请类型：</label>
         <Select clearable style="width:100px">
@@ -12,18 +12,13 @@
         </Select>
         <Input class="query-key" placeholder="请输入查询内容" style="width: 300px" />
         <Button type="primary" @click="getData">查找</Button>
-        <Button type="primary" @click="add">新增申请</Button>
-        <Button type="primary" @click="edit">变更申请</Button>
-        <Button type="primary" @click="itAdd">IT基础监控申请</Button>
       </div>
       <div class="query-condition2">
         <CheckboxGroup>
-          <Checkbox label="已提交 15"></Checkbox>
-          <Checkbox label="审批中 10"></Checkbox>
+          <Checkbox label="待审核 15"></Checkbox>
           <Checkbox label="已驳回 1"></Checkbox>
-          <Checkbox label="已完结 20"></Checkbox>
+          <Checkbox label="已完结 32"></Checkbox>
         </CheckboxGroup>
-        <a class="download" href="JavaScript: void(0)">采集探针下载</a>
       </div>
       <b-table class="data-table" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData" pageSize="small"></b-table>
     </div>
@@ -40,6 +35,10 @@
           pageSize: 10
         },
         columns: [{
+            type: 'selection',
+            width: 64,
+            align: 'right'
+          }, {
             title: "Name",
             key: "name"
           },
@@ -83,31 +82,13 @@
     methods: {
       getData() {
 
-      },
-      add() {
-        this.$router.push({
-          name: 'slmmapply',
-          params: {}
-        });
-      },
-      edit() {
-        this.$router.push({
-          name: 'editapply',
-          params: {}
-        });
-      },
-      itAdd() {
-        this.$router.push({
-          name: 'itapply',
-          params: {}
-        });
       }
     }
   };
 </script>
 
 <style lang="less">
-  .applylist {
+  .approval {
     width: 100%;
     .normal-panel-title {
       height: 50px;
@@ -198,26 +179,29 @@
       line-height: 50px;
       border-top: solid 1px rgba(143, 205, 240, 0.25);
       border-bottom: solid 1px rgba(143, 205, 240, 0.25);
-      .ivu-checkbox-group {
-        display: inline-block;
-        margin-left: 25px;
-        .ivu-checkbox-inner {
-          margin-right: 5px;
-          border: solid 1px rgba(143, 205, 240, 0.25);
-          background-color: #1A2440;
-        }
-        .ivu-checkbox-group-item {
-          margin-right: 15px;
-        }
-      }
       .download {
         float: right;
         margin-right: 30px;
         text-decoration: underline;
       }
     }
+    .ivu-checkbox-group {
+      display: inline-block;
+      margin-left: 25px;
+      .ivu-checkbox-group-item {
+        margin-right: 15px;
+      }
+    }
+    .ivu-checkbox-inner {
+      margin-right: 5px;
+      border: solid 1px rgba(143, 205, 240, 0.25);
+      background-color: #1A2440;
+    }
     .ivu-table-wrapper {
       margin-bottom: 20px;
+      .ivu-checkbox-inner {
+        margin-right: 0;
+      }
     }
      ::-webkit-input-placeholder {
       /* WebKit, Blink, Edge */
