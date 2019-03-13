@@ -92,7 +92,7 @@ export default {
   cursor: pointer;
 }
 .ivu-table-header {
-  background-color: rgba(33, 41, 72, 0.5);
+  // background-color: #212b4b;
   color: #50b5ec;
 }
 .ivu-table-body{
