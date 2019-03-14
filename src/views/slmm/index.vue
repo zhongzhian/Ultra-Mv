@@ -1,6 +1,6 @@
 <template>
   <div style="display:flex;">
-    <app-menu :value="menuList" :module="module" @toggle="onToggle"></app-menu>
+    <!-- <app-menu :value="menuList" :module="module" @toggle="onToggle"></app-menu> -->
     <router-view id="indexView" class="app-container" :class="width"></router-view>
   </div>
 </template>

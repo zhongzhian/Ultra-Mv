@@ -61,7 +61,13 @@
               </li>
             </ul>
           </div>
-          <b-table :columns="columns1" :data="data1" :pageData="pageData" :pageSize="pageSize"></b-table>
+          <b-table
+            @on-row-click="monitor"
+            :columns="columns1"
+            :data="data1"
+            :pageData="pageData"
+            :pageSize="pageSize"
+          ></b-table>
         </div>
       </div>
     </div>
@@ -161,6 +167,13 @@ export default {
         return d.value === name;
       });
       this.alarmSelectName = aa.name;
+    },
+    monitor(item, index) {
+      // this.isshowApproval = true;
+      this.$router.push({
+        name: "slmonitor",
+        params: {}
+      });
     }
   }
 };

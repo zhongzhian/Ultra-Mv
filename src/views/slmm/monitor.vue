@@ -696,7 +696,7 @@ export default {
 }
 .slmm-sla-chart-div {
   padding: 0 10px;
-  background-color: #151740;
+  background-color: #18203e;
   height: 200px;
   border-top: solid 1px #163e68;
 }

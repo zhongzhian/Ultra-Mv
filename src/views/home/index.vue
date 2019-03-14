@@ -380,7 +380,7 @@ export default {
     this.kpiTop5();
     this.proviceChart();
     this.appTop5();
-    this.tttss();
+    // this.tttss();
   },
   methods: {
     tttss() {
