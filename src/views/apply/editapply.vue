@@ -122,7 +122,7 @@
 <style lang="less">
   .editapply {
     .ivu-select {
-      color: #53c2f8;
+      color: #50b5ec;
       margin-right: 25px;
       .ivu-select-selection {
         height: 28px;
@@ -134,14 +134,14 @@
       .ivu-select-selected-value {
         height: 28px;
         line-height: 28px;
-        color: #53c2f8;
+        color: #50b5ec;
         text-align: center;
       }
       .ivu-select-placeholder {
         color: #3175a4;
       }
       .ivu-icon {
-        color: #53c2f8;
+        color: #50b5ec;
       }
     }
     .btns {
@@ -170,14 +170,14 @@
       border: 1px solid rgba(143, 205, 240, 0.25);
       height: 28px;
       background-color: #161941;
-      color: #53c2f8;
+      color: #50b5ec;
       border-radius: 1px;
     }
     .ivu-input-icon {
       width: 28px;
       height: 28px;
       line-height: 28px;
-      color: #53c2f8;
+      color: #50b5ec;
     }
     .table-content {
       background-color: #161941;

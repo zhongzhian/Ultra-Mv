@@ -235,14 +235,14 @@
       border: 1px solid rgba(143, 205, 240, 0.25);
       height: 28px;
       background-color: #161941;
-      color: #53c2f8;
+      color: #50b5ec;
       border-radius: 1px;
     }
     .ivu-input-icon {
       width: 28px;
       height: 28px;
       line-height: 28px;
-      color: #53c2f8;
+      color: #50b5ec;
     }
     .select-input {
       background-color: #1A2440;
@@ -267,7 +267,7 @@
       }
     }
     .ivu-select {
-      color: #53c2f8;
+      color: #50b5ec;
       .ivu-select-selection {
         height: 28px;
         border: 1px solid rgba(143, 205, 240, 0.25);
@@ -278,14 +278,14 @@
       .ivu-select-selected-value {
         height: 28px;
         line-height: 28px;
-        color: #53c2f8;
+        color: #50b5ec;
         text-align: center;
       }
       .ivu-select-placeholder {
         color: #3175a4;
       }
       .ivu-icon {
-        color: #53c2f8;
+        color: #50b5ec;
       }
     }
     .items {
@@ -298,7 +298,7 @@
       .ivu-btn.ivu-btn-primary {
         height: 28px;
         line-height: 28px;
-        color: #53c2f8;
+        color: #50b5ec;
         border: 1px solid rgba(143, 205, 240, 0.25);
         border-radius: 1px;
         background-color: #043171;

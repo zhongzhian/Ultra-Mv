@@ -86,7 +86,7 @@
                   },
                   style: {
                     marginRight: '5px',
-                    color: '#50b5ec'
+                    color: '#50b5ecc'
                   },
                   on: {
                     click: () => {
@@ -101,7 +101,7 @@
                   },
                   style: {
                     marginRight: '5px',
-                    color: '#50b5ec'
+                    color: '#50b5ecc'
                   },
                   on: {
                     click: () => {
@@ -119,7 +119,7 @@
                   },
                   style: {
                     marginRight: '5px',
-                    color: '#50b5ec'
+                    color: '#50b5ecc'
                   },
                   on: {
                     click: () => {
@@ -264,7 +264,7 @@
           border: 1px solid rgba(143, 205, 240, 0.25);
           height: 28px;
           background-color: #161941;
-          color: #53c2f8;
+          color: #50b5ec;
           border-radius: 1px;
           text-align: center;
         }
@@ -272,7 +272,7 @@
           width: 28px;
           height: 28px;
           line-height: 28px;
-          color: #53c2f8;
+          color: #50b5ec;
         }
       }
       .ivu-input-wrapper.query-key {
@@ -281,18 +281,18 @@
           border: 1px solid rgba(143, 205, 240, 0.25);
           height: 28px;
           background-color: #161941;
-          color: #53c2f8;
+          color: #50b5ec;
           border-radius: 1px;
         }
         .ivu-input-icon {
           width: 28px;
           height: 28px;
           line-height: 28px;
-          color: #53c2f8;
+          color: #50b5ec;
         }
       }
       .ivu-select {
-        color: #53c2f8;
+        color: #50b5ec;
         .ivu-select-selection {
           height: 28px;
           border: 1px solid rgba(143, 205, 240, 0.25);
@@ -303,20 +303,20 @@
         .ivu-select-selected-value {
           height: 28px;
           line-height: 28px;
-          color: #53c2f8;
+          color: #50b5ec;
           text-align: center;
         }
         .ivu-select-placeholder {
           color: #3175a4;
         }
         .ivu-icon {
-          color: #53c2f8;
+          color: #50b5ec;
         }
       }
       .ivu-btn.ivu-btn-primary {
         height: 28px;
         line-height: 28px;
-        color: #53c2f8;
+        color: #50b5ec;
         border: 1px solid rgba(143, 205, 240, 0.25);
         border-radius: 1px;
         background-color: #043171;
@@ -379,7 +379,7 @@
     height: 0;
     top: 2px;
     left: 2px;
-    border: 4px solid #53c2f8;
+    border: 4px solid #50b5ec;
     border-radius: 4px;
     -webkit-transform: rotate(0) scale(1);
     transform: rotate(0) scale(1);

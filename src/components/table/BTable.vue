@@ -83,7 +83,7 @@ export default {
   margin: 10px 20px;
   display: flex;
   justify-content: flex-end;
-  color: #50b5ec;
+  color: #50b5ecc;
 }
 .hyz-page .ivu-select {
   position: relative;
@@ -93,7 +93,7 @@ export default {
 }
 .ivu-table-header {
   // background-color: #212b4b;
-  color: #50b5ec;
+  color: #50b5ecc;
 }
 .ivu-table-body{
   color: #ccc;
@@ -133,7 +133,7 @@ export default {
 }
 .ivu-page.mini .ivu-page-options-elevator input {
   background-color: #161941;
-  color: #50b5ec;
+  color: #50b5ecc;
   border-radius: 2px;
   border: 0;
 }

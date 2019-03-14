@@ -69,7 +69,7 @@ export default {
     background-color: #161941;
     border: 1px solid #2a6893;
     font-size: 12px;
-    color: #50b5ec;
+    color: #50b5ecc;
     border-radius: 2px;
     padding: 4px 8px;
     width: 200px;
@@ -82,7 +82,7 @@ export default {
   }
   &-icon {
     font-size: 18px;
-    color: #50b5ec;
+    color: #50b5ecc;
     margin-left: -24px;
     vertical-align: middle;
     font-weight: 700;
