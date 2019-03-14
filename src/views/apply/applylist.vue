@@ -27,13 +27,34 @@
       </div>
       <b-table class="data-table" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData" pageSize="small"></b-table>
     </div>
+    <div v-if="isShowSchedule" class="normal-panel schedule">
+      <div class="mask"></div>
+      <div class="normal-panel-content">
+        <div class="normal-panel-title">申请编号：32132332</div>
+        <el-steps :active="2" finish-status="success" process-status="finish" align-center>
+          <el-step title="提交申请" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="战客部审" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="运维部审批" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="IT部审批" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="NMS自动发现" description="这是一段很长很长很长的描述性文字"></el-step>
+          <el-step title="完成" description="这是一段很长很长很长的描述性文字"></el-step>
+        </el-steps>
+        <p class="btns">
+          <Button type="primary" @click="isShowSchedule = false">返回列表</Button>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
+  import Vue from 'vue';
+  import ElementUI from 'element-ui';
+  import 'element-ui/lib/theme-chalk/index.css';
+  Vue.use(ElementUI);
   export default {
     data() {
       return {
+        isShowSchedule: false,
         pageData: {
           total: 4,
           current: 1,
@@ -50,6 +71,73 @@
           {
             title: "Address",
             key: "address"
+          },
+          {
+            title: '编辑',
+            key: 'action',
+            width: 200,
+            align: 'center',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'text',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    color: '#50b5ec'
+                  },
+                  on: {
+                    click: () => {
+                      this.isShowSchedule = true;
+                    }
+                  }
+                }, '进度'),
+                h('Button', {
+                  props: {
+                    type: 'text',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    color: '#50b5ec'
+                  },
+                  on: {
+                    click: () => {
+                      this.$router.push({
+                        name: 'slmmapplyinfo',
+                        params: {}
+                      });
+                    }
+                  }
+                }, '查看'),
+                h('Button', {
+                  props: {
+                    type: 'text',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    color: '#50b5ec'
+                  },
+                  on: {
+                    click: () => {
+                      this.$Modal.confirm({
+                        title: '提醒',
+                        content: '确认撤销申请？',
+                        onOk: () => {
+                          this.$Message.info('Clicked ok');
+                        },
+                        onCancel: () => {
+                          this.$Message.info('Clicked cancel');
+                        }
+                      });
+                    }
+                  }
+                }, '撤销')
+              ]);
+            }
           }
         ],
         data: [{
@@ -108,6 +196,52 @@
 
 <style lang="less">
   .applylist {
+    .schedule {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      z-index: 98;
+      padding: 20px 15%;
+      .mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0.6;
+        z-index: 99;
+      }
+      .normal-panel-content {
+        background-color: rgba(33, 41, 72);
+        z-index: 100;
+        height: auto;
+        overflow: auto;
+        .ivu-steps .ivu-steps-head {
+          background-color: rgba(33, 41, 72);
+        }
+        .ivu-steps.ivu-steps-small .ivu-steps-title {
+          color: #fff;
+          background-color: rgba(33, 41, 72);
+        }
+        .btns {
+          line-height: 50px;
+          text-align: center;
+          margin-bottom: 20px;
+          .ivu-btn.ivu-btn-primary {
+            border-radius: 1px;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 15px;
+            margin-left: 30px;
+          }
+        }
+      }
+    }
     width: 100%;
     .normal-panel-title {
       height: 50px;

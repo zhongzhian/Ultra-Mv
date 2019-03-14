@@ -1,5 +1,5 @@
 <template>
-  <div class="normal-panel approval">
+  <div class="normal-panel approval-list">
     <div class="normal-panel-content">
       <div class="normal-panel-title">审批管理</div>
       <div class="query-condition">
@@ -20,7 +20,101 @@
           <Checkbox label="已完结 32"></Checkbox>
         </CheckboxGroup>
       </div>
-      <b-table class="data-table" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData" pageSize="small"></b-table>
+      <b-table class="data-table" @on-row-click="approval" :columns="columns" :data="data" @page-data-change="getData" :pageData="pageData" pageSize="small"></b-table>
+    </div>
+    <div v-if="isshowApproval" class="normal-panel approval">
+      <div class="mask"></div>
+      <div class="normal-panel-content">
+        <div class="normal-panel-title">审批管理<Icon @click="isshowApproval = false" type="close-round"></Icon></div>
+        <Row class="table-title">
+          <label>申请基本信息</label>
+        </Row>
+        <div class="table-content">
+          <Row>
+            <Col span="12">
+            <label>申请客户：</label>
+            <span>万科</span>
+            </Col>
+            <Col span="12">
+            <label>申请类型：</label>
+            <span>新增专线监控</span>
+            </Col>
+          </Row>
+          <Row>
+            <Col span="12">
+            <label>申请人：</label>
+            <span>胡玩玩</span>
+            </Col>
+            <Col span="12">
+            <label>申请时间：</label>
+            <span>2019-10-23</span>
+            </Col>
+          </Row>
+          <Row class="desc">
+            <Col span="24">
+            <label>申请描述：</label>
+            <span>申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述申请描述</span>
+            </Col>
+          </Row>
+        </div>
+        <Row class="table-title">
+          <label>申请监控设备</label>
+        </Row>
+        <div class="table-content">
+          <Row class="device">
+            <Col span="8">
+            <p>
+              <label>设备区域：</label>
+              <span>深圳</span>
+              <label class="">设备IP：</label>
+              <span>123.4.3.2</span>
+            </p>
+            </Col>
+            <Col span="8">
+            <p>
+              <label>设备区域：</label>
+              <span>深圳</span>
+              <label class="">设备IP：</label>
+              <span>123.4.3.2</span>
+            </p>
+            </Col>
+            <Col span="8">
+            <p>
+              <label>设备区域：</label>
+              <span>深圳</span>
+              <label class="">设备IP：</label>
+              <span>123.4.3.2</span>
+            </p>
+            </Col>
+            <Col span="8">
+            <p>
+              <label>设备区域：</label>
+              <span>深圳</span>
+              <label class="">设备IP：</label>
+              <span>123.4.3.2</span>
+            </p>
+            </Col>
+            <Col span="8">
+            <p>
+              <label>设备区域：</label>
+              <span>深圳</span>
+              <label class="">设备IP：</label>
+              <span>123.4.3.2</span>
+            </p>
+            </Col>
+          </Row>
+        </div>
+        <Row class="table-title">
+          <label>审批建议</label>
+        </Row>
+        <div class="table-content description">
+          <Input type="textarea" placeholder="请输入审批建议"></Input>
+        </div>
+        <p class="btns">
+          <Button type="primary">通过</Button>
+          <Button type="primary">驳回</Button>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -29,16 +123,13 @@
   export default {
     data() {
       return {
+        isshowApproval: false,
         pageData: {
           total: 4,
           current: 1,
           pageSize: 10
         },
         columns: [{
-            type: 'selection',
-            width: 64,
-            align: 'right'
-          }, {
             title: "Name",
             key: "name"
           },
@@ -82,18 +173,143 @@
     methods: {
       getData() {
 
+      },
+      approval() {
+        this.isshowApproval = true;
       }
     }
   };
 </script>
 
 <style lang="less">
-  .approval {
+  .approval-list {
     width: 100%;
+    .approval {
+      .btns {
+        margin-bottom: 20px;
+        line-height: 50px;
+        text-align: center;
+        .ivu-btn.ivu-btn-primary {
+          border-radius: 1px;
+          height: 28px;
+          line-height: 28px;
+          padding: 0 15px;
+          margin-left: 30px;
+        }
+      }
+      .description {
+        padding: 15px 25px;
+        textarea {
+          height: 120px;
+          background-color: #161941;
+        }
+      }
+      .ivu-input {
+        border: 1px solid rgba(143, 205, 240, 0.25);
+        height: 28px;
+        background-color: #161941;
+        color: #53c2f8;
+        border-radius: 1px;
+      }
+      .table-title {
+        height: 50px;
+        text-align: left;
+        padding-left: 25px;
+        border-top: solid 1px rgba(143, 205, 240, 0.25);
+        border-bottom: solid 1px rgba(143, 205, 240, 0.25);
+        background-color: #1A2440;
+        line-height: 50px;
+      }
+      .table-content {
+        background-color: #1A2440;
+        margin-bottom: 20px;
+        border-bottom: solid 1px rgba(143, 205, 240, 0.25);
+        .ivu-row {
+          text-align: left;
+          line-height: 40px;
+          label {
+            display: inline-block;
+            width: 150px;
+            text-align: right;
+          }
+        }
+        .device {
+          text-align: center;
+          label {
+            width: auto;
+            padding-left: 8px;
+          }
+          .ivu-col {
+            padding: 10px 0;
+          }
+        }
+        .ivu-row>.ivu-col>span,
+        .ivu-row.device>.ivu-col>p>span {
+          display: inline-block;
+          width: 150px;
+          text-align: left;
+          color: #53c2f8;
+        }
+        .ivu-row.device>.ivu-col>p {
+          display: inline-block;
+          background-color: #161941;
+        }
+        .ivu-row.device>.ivu-col>p>span:nth-of-type(1) {
+          width: auto;
+          min-width: 40px;
+        }
+        .ivu-row.device>.ivu-col>p>span:nth-of-type(2) {
+          width: 100px;
+          padding-right: 8px;
+        }
+        .ivu-row.desc {
+          label {
+            float: left;
+          }
+          span {
+            width: 50%;
+            line-height: 20px;
+            padding-top: 10px;
+          }
+        }
+      }
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      z-index: 98;
+      padding: 20px 15%;
+      .mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0.6;
+        z-index: 99;
+      }
+      .normal-panel-content {
+        background-color: rgba(33, 41, 72);
+        height: 100%;
+        z-index: 100;
+        overflow: auto;
+      }
+    }
     .normal-panel-title {
       height: 50px;
       line-height: 50px;
       padding: 0 15px;
+      .ivu-icon {
+        float: right;
+        font-size: 20px;
+        color: red;
+        margin-top: 15px;
+        cursor: pointer;
+      }
     }
     .query-condition {
       background-color: #1A2440;

@@ -1,61 +1,27 @@
 <template>
-  <div class="normal-panel itapply">
+  <div class="normal-panel slmmapplyinfo">
     <div class="normal-panel-content">
-      <div class="normal-panel-title">IT基础监控申请</div>
+      <div class="normal-panel-title">专线监控申请</div>
       <div class="apply-name">
         <label>专线名称</label>
-        <Input class="query-key" placeholder="请输入专线名称" style="width: 300px" />
+        <Input disabled class="query-key" placeholder="请输入专线名称" style="width: 300px" />
       </div>
       <Row class="select-input">
         <Col span="5">
-        <label>选择采集方式</label>
-        </Col>
-        <Col span="5">
-        <RadioGroup v-model="collectType">
-          <Radio label="直接采集"></Radio>
-          <Radio label="前置Probe采集"></Radio>
-        </RadioGroup>
-        </Col>
-        <Col v-show="collectType == '前置Probe采集'" span="5">
-        <label>选择Probe探针：</label>
-        <Select clearable style="width:150px">
-          <Option :value="1" :key="1">1</Option>
-          <Option :value="2" :key="2">2</Option>
-        </Select>
-        </Col>
-      </Row>
-      <Row class="select-input">
-        <Col span="5">
-        <label>选择监控设备</label>
-        </Col>
-        <Col span="5">
-        <label>选择省份：</label>
-        <Select clearable style="width:100px">
-          <Option :value="1" :key="1">1</Option>
-          <Option :value="2" :key="2">2</Option>
-        </Select>
-        </Col>
-        <Col span="5">
-        <label><span class="red">*</span>选择监控设备：</label>
-        <Select clearable style="width:150px">
-          <Option :value="1" :key="1">1</Option>
-          <Option :value="2" :key="2">2</Option>
-        </Select>
-        </Col>
-        <Col span="4">
-        <Button type="primary">添加</Button>
+        <label>监控线路</label>
         </Col>
       </Row>
       <div class="items">
         <div class="one-item">
           <Row class="title">
             <Col span="3">省份</Col>
+            <Col span="4"><span class="red">*</span>电路编号</Col>
             <Col span="4"><span class="red">*</span>监控设备</Col>
             <Col span="4"><span class="red">*</span>子网掩码</Col>
             <Col span="3"><span class="red">*</span>SNMP版本</Col>
-            <Col span="3">端口</Col>
-            <Col span="3"><span class="red">*</span>共同体名称</Col>
-            <Col span="3"></Col>
+            <Col span="2">端口</Col>
+            <Col span="2"><span class="red">*</span>共同体名称</Col>
+            <Col span="2"></Col>
           </Row>
           <Row class="content">
             <Col span="3">
@@ -67,33 +33,35 @@
             <Col span="4">
             <Input disabled style="width: 150px" />
             </Col>
+            <Col span="4">
+            <Input disabled style="width: 150px" />
+            </Col>
             <Col span="3">
-            <Select clearable style="width:100px">
+            <Select disabled clearable style="width:100px">
               <Option :value="1" :key="1">SNMP1</Option>
               <Option :value="2" :key="2">SNMP2</Option>
             </Select>
             </Col>
-            <Col span="3">
-            <Input placeholder="请输入" style="width: 70px" />
+            <Col span="2">
+            <Input disabled placeholder="请输入" style="width: 70px" />
             </Col>
-            <Col span="3">
-            <Input placeholder="请输入" style="width: 100px" />
+            <Col span="2">
+            <Input disabled placeholder="请输入" style="width: 100px" />
             </Col>
-            <Col span="3">
-            <Icon color="green" size="20" type="checkmark-circled"></Icon>
-            <Button type="primary">删除</Button>
+            <Col span="2">
             </Col>
           </Row>
         </div>
         <div class="one-item">
           <Row class="title">
             <Col span="3">省份</Col>
+            <Col span="4"><span class="red">*</span>电路编号</Col>
             <Col span="4"><span class="red">*</span>监控设备</Col>
             <Col span="4"><span class="red">*</span>子网掩码</Col>
             <Col span="3"><span class="red">*</span>SNMP版本</Col>
-            <Col span="3">端口</Col>
-            <Col span="3"><span class="red">*</span>共同体名称</Col>
-            <Col span="3"></Col>
+            <Col span="2">端口</Col>
+            <Col span="2"><span class="red">*</span>共同体名称</Col>
+            <Col span="2"></Col>
           </Row>
           <Row class="content">
             <Col span="3">
@@ -105,21 +73,22 @@
             <Col span="4">
             <Input disabled style="width: 150px" />
             </Col>
+            <Col span="4">
+            <Input disabled style="width: 150px" />
+            </Col>
             <Col span="3">
-            <Select clearable style="width:100px">
+            <Select disabled clearable style="width:100px">
               <Option :value="1" :key="1">SNMP1</Option>
               <Option :value="2" :key="2">SNMP2</Option>
             </Select>
             </Col>
-            <Col span="3">
-            <Input placeholder="请输入" style="width: 70px" />
+            <Col span="2">
+            <Input disabled placeholder="请输入" style="width: 70px" />
             </Col>
-            <Col span="3">
-            <Input placeholder="请输入" style="width: 100px" />
+            <Col span="2">
+            <Input disabled placeholder="请输入" style="width: 100px" />
             </Col>
-            <Col span="3">
-            <Icon color="red" size="20" type="close-circled"></Icon>
-            <Button type="primary">删除</Button>
+            <Col span="2">
             </Col>
           </Row>
         </div>
@@ -130,28 +99,26 @@
       <Row class="icmp-content">
         <Col span="5">
         <label>ICMP PING包大小：</label>
-        <Input placeholder="PING包大小" style="width: 100px" value="32" />
+        <Input disabled placeholder="PING包大小" style="width: 100px" value="32" />
         </Col>
         <Col span="5">
         <label>ICMP重复次数：</label>
-        <Input placeholder="ICMP重复次数" style="width: 100px" value="2" />
+        <Input disabled placeholder="ICMP重复次数" style="width: 100px" value="2" />
         </Col>
         <Col span="5">
         <label>超时时间毫秒：</label>
-        <Input placeholder="超时时间毫秒" style="width: 100px" value="380" />
+        <Input disabled placeholder="超时时间毫秒" style="width: 100px" value="380" />
         </Col>
       </Row>
       <Row class="table-title">
         <label>申请描述</label>
       </Row>
       <Row class="description">
-        <Input type="textarea" placeholder="请输入申请描述"></Input>
+        <Input disabled type="textarea" placeholder="请输入申请描述"></Input>
       </Row>
     </div>
     <p class="btns">
-      <Button type="primary">保存草稿</Button>
-      <Button type="primary" class="notcheched">提交</Button>
-      <span class="tip">所有设备经NMS测试，均可连接，才能提交至下一步</span>
+      <Button type="primary" @click="back">返回监控申请列表</Button>
     </p>
   </div>
 </template>
@@ -159,17 +126,22 @@
 <script>
   export default {
     data() {
-      return {
-        collectType: '前置Probe采集'
-      };
+      return {};
     },
     mounted() {},
-    methods: {}
+    methods: {
+      back() {
+        this.$router.push({
+          name: 'applylist',
+          params: {}
+        });
+      }
+    }
   };
 </script>
 
 <style lang="less">
-  .itapply {
+  .slmmapplyinfo {
     .btns {
       .tip {
         color: #F4CCA8;
@@ -259,11 +231,6 @@
         line-height: 28px;
         padding: 0 15px;
         margin-left: 10px;
-      }
-      .ivu-radio-group {
-        .ivu-radio-wrapper {
-          margin-right: 25px;
-        }
       }
     }
     .ivu-select {

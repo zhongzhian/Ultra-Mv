@@ -38,9 +38,9 @@
       <div class="items">
         <div class="one-item">
           <Row class="title">
-            <Col span="3">选择省份</Col>
-            <Col span="4"><span class="red">*</span>选择电路编号</Col>
-            <Col span="4"><span class="red">*</span>选择监控设备</Col>
+            <Col span="3">省份</Col>
+            <Col span="4"><span class="red">*</span>电路编号</Col>
+            <Col span="4"><span class="red">*</span>监控设备</Col>
             <Col span="4"><span class="red">*</span>子网掩码</Col>
             <Col span="3"><span class="red">*</span>SNMP版本</Col>
             <Col span="2">端口</Col>
@@ -80,9 +80,9 @@
         </div>
         <div class="one-item">
           <Row class="title">
-            <Col span="3">选择省份</Col>
-            <Col span="4"><span class="red">*</span>选择电路编号</Col>
-            <Col span="4"><span class="red">*</span>选择监控设备</Col>
+            <Col span="3">省份</Col>
+            <Col span="4"><span class="red">*</span>电路编号</Col>
+            <Col span="4"><span class="red">*</span>监控设备</Col>
             <Col span="4"><span class="red">*</span>子网掩码</Col>
             <Col span="3"><span class="red">*</span>SNMP版本</Col>
             <Col span="2">端口</Col>
@@ -156,7 +156,7 @@
 <script>
   export default {
     data() {
-      return {};
+      return {};  
     },
     mounted() {},
     methods: {}
@@ -190,12 +190,12 @@
     width: 100%;
     .description {
       padding: 15px 25px;
-      background-color: #161941;
+      background-color: #1A2440;
       border-bottom: solid 1px rgba(143, 205, 240, 0.25);
       margin-bottom: 20px;
       textarea {
         height: 120px;
-        background-color: #1A2440;
+        background-color: #161941;
       }
     }
     .table-title {

@@ -97,6 +97,13 @@ export const appRouter = {
           component: () => import('../views/apply/applylist.vue')
         },
         {
+          path: 'slmmapplyinfo',
+          name: 'slmmapplyinfo',
+          icon: 'ios-bell',
+          label: '查看申请信息',
+          component: () => import('../views/apply/slmmapplyinfo.vue')
+        },
+        {
           path: 'slmmapply',
           name: 'slmmapply',
           icon: 'ios-bell',
