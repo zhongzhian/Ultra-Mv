@@ -18,6 +18,7 @@
       <div class="normal-panel fl" style="width:70%;height:600px;">
         <div class="normal-panel-content">
           <div class="normal-panel-title" style="text-align:center;">全国异常专线情况</div>
+          <div id="mapChart" style="height:500px;"></div>
         </div>
       </div>
       <div class="normal-panel fl" style="width:30%;">
@@ -129,6 +130,7 @@
 
 <script>
 import G2 from "@antv/g2";
+// import L7 from '@antv/l7';
 import { View } from "@antv/data-set";
 import data from "./diamond.json";
 // import switchtab from "@/components/SwitchTab.vue";
@@ -378,8 +380,52 @@ export default {
     this.kpiTop5();
     this.proviceChart();
     this.appTop5();
+    this.tttss();
   },
   methods: {
+    tttss() {
+      var scene = new L7.Scene({
+        id: "mapChart",
+        mapStyle: "dark", // 样式URL
+        center: [104.838088, 34.075889],
+        pitch: 35,
+        zoom: 4.88,
+        rotation: 4.183582
+      });
+      window.scene = scene;
+      // scene.on("loaded", function() {
+      //   $.get(
+      //     "https://gw.alipayobjects.com/os/rmsportal/oVTMqfzuuRFKiDwhPSFL.json",
+      //     function(data) {
+      //       scene
+      //         .PointLayer({
+      //           zIndex: 2
+      //         })
+      //         .source(data.list, {
+      //           type: "array",
+      //           x: "j",
+      //           y: "w"
+      //         })
+      //         .shape("3d:circle")
+      //         .size("t", function(level) {
+      //           return [2, 2, level * 3 + 20];
+      //         })
+      //         .active(true)
+      //         .color("t", [
+      //           "#002466",
+      //           "#105CB3",
+      //           "#2894E0",
+      //           "#CFF6FF",
+      //           "#FFF5B8",
+      //           "#FFAB5C",
+      //           "#F27049",
+      //           "#730D1C"
+      //         ])
+      //         .render();
+      //     }
+      //   );
+      // });
+    },
     alarmSelect(name) {
       console.log("do something");
     },
@@ -657,10 +703,10 @@ export default {
   font-size: 12px;
   display: inline-block;
   border-radius: 2px;
-  background-color: #161941;
+  background-color: #151740;
   margin: 0 10px;
   td {
-    border: 1px solid #2a6893;
+    border: 1px solid #163e68;
     border-collapse: collapse;
     padding: 4px 8px;
     color: #2a6893;
@@ -669,7 +715,7 @@ export default {
   td.active {
     color: #50b5ec;
     font-weight: 600;
-    background-color: #0e2b61;
+    background-color: #02306f;
   }
 }
 // .home-table-condition {
