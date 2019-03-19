@@ -190,27 +190,27 @@ export default {
       top5Index: "2",
       row1kpis: [
         {
-          img: "/static/images/paidan.png",
+          img: "static/images/paidan.png",
           label: "派单数量",
           value: 4
         },
         {
-          img: "/static/images/shuliang.png",
+          img: "static/images/shuliang.png",
           label: "专线省份数量",
           value: 23
         },
         {
-          img: "/static/images/pingfen.png",
+          img: "static/images/pingfen.png",
           label: "质量评分",
           value: 96.8
         },
         {
-          img: "/static/images/zhuanxian.png",
+          img: "static/images/zhuanxian.png",
           label: "新监控专线",
           value: 7
         },
         {
-          img: "/static/images/zongjizhuanxian.png",
+          img: "static/images/zongjizhuanxian.png",
           label: "总计监控专线",
           value: 87
         }
