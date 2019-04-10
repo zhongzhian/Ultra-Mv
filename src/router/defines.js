@@ -6,13 +6,6 @@ export const appRouter = {
   redirect: '/home',
   children: [
     {
-      path: 'approval',
-      name: 'approval',
-      icon: 'ios-bell',
-      label: '审批管理',
-      component: () => import('../views/approval'),
-    },
-    {
       path: 'home',
       name: 'home',
       icon: 'home',
@@ -125,6 +118,20 @@ export const appRouter = {
           component: () => import('../views/apply/itapply.vue')
         },
       ]
+    },
+    {
+      path: 'approval',
+      name: 'approval',
+      icon: 'ios-bell',
+      label: '审批管理',
+      component: () => import('../views/approval'),
+    },
+    {
+      path: 'map',
+      name: 'map',
+      icon: 'ios-bell',
+      label: '地图',
+      component: () => import('../views/map'),
     },
   ]
 }

@@ -5,11 +5,11 @@
       <!-- <div>{{$t('projectName')}}</div> -->
     </div>
     
+           <!-- v-if="isAdmin || authMenus.indexOf(item.name) > -1"> -->
     <div class="header-menu">
       <div class="header-menu-item" 
            :class="{'header-menu-item-selected': activeMenu === item.name}"
-           v-for="item in appMenus" :key="item.name" @click="letsgo(item)"
-           v-if="isAdmin || authMenus.indexOf(item.name) > -1">
+           v-for="item in appMenus" :key="item.name" @click="letsgo(item)" >
         <Icon :type="item.icon"></Icon>
         {{ item.label }}
       </div>
@@ -70,7 +70,7 @@ export default {
       return this.$store.getters.appMenus
     },
     authMenus() {
-      return this.$store.getters.authMenus
+      return this.$store.getters.authMenus || []
     },
     isAdmin() {
       return this.$store.getters.isAdmin

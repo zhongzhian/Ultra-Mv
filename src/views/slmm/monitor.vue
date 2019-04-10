@@ -212,8 +212,8 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:20px;height:350px;">
-      <div class="normal-panel fl" style="width:100%;height:350px;">
+    <div style="margin-top:20px;height:360px;">
+      <div class="normal-panel fl" style="width:100%;height:360px;">
         <div class="normal-panel-content">
           <div class="normal-panel-title" style="height:50px;line-height: 30px;">接口(6-空闲-3)</div>
           <div class="home-table-condition" style="width:400px;">

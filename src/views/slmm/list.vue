@@ -51,13 +51,13 @@
           <div class="slmm-table-condition" style="margin-top:20px;">
             <ul class="slmm-table-condition-ul">
               <li>
-                <Checkbox v-model="single">待审核 15</Checkbox>
+                <Checkbox v-model="isDaishenhe">待审核 15</Checkbox>
               </li>
               <li>
-                <Checkbox v-model="single">已驳回 1</Checkbox>
+                <Checkbox v-model="isYibohui">已驳回 1</Checkbox>
               </li>
               <li>
-                <Checkbox v-model="single">已完结 32</Checkbox>
+                <Checkbox v-model="isYiwanjie">已完结 32</Checkbox>
               </li>
             </ul>
           </div>
@@ -81,6 +81,9 @@ export default {
   components: { comselect },
   data() {
     return {
+      isDaishenhe:false,
+      isYibohui:false,
+      isYiwanjie:false,
       alarmSelectValue: "1",
       alarmSelectName: "驴打滚",
       alarmSelectData: [
