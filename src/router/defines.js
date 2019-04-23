@@ -126,13 +126,13 @@ export const appRouter = {
       label: '审批管理',
       component: () => import('../views/approval'),
     },
-    {
-      path: 'map',
-      name: 'map',
-      icon: 'ios-bell',
-      label: '地图',
-      component: () => import('../views/map'),
-    },
+    // {
+    //   path: 'map',
+    //   name: 'map',
+    //   icon: 'ios-bell',
+    //   label: '地图',
+    //   component: () => import('../views/map'),
+    // },
   ]
 }
 

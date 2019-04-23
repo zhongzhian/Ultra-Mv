@@ -1,8 +1,6 @@
-// const baseDomain = '123.57.3.79'
- const baseDomain = 'utoss.linkme8.cn'
-//const baseDomain = 'turbo.linkme8.cn'
-const baseProtocol = 'https'
-const basePort = 20000
+const baseDomain = '39.104.229.21'
+const baseProtocol = 'http'
+const basePort = 58055
 
 export const REST_API = process.env.NODE_ENV === 'production' ? '' : `${baseProtocol}://${baseDomain}:${basePort}`
 
