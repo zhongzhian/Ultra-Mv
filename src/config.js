@@ -2,7 +2,16 @@ const baseDomain = '39.104.229.21'
 const baseProtocol = 'http'
 const basePort = 58055
 
-export const REST_API = process.env.NODE_ENV === 'production' ? '' : `${baseProtocol}://${baseDomain}:${basePort}`
+const proDomain = '39.104.229.21'
+const proProtocol = 'http'
+const proPort = 58055
+
+// export const REST_API = process.env.NODE_ENV === 'production' ? '' : `${baseProtocol}://${baseDomain}:${basePort}`
+export const REST_API = ''
+
+
+
+//export const REST_API = process.env.NODE_ENV === 'production' ? `${proProtocol}://${proDomain}:${proPort}` : `${baseProtocol}://${baseDomain}:${basePort}`
 
 const {hostname, port, protocol} = window.location
 console.log('>>> url', protocol, hostname, port)

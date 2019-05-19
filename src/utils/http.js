@@ -6,7 +6,7 @@ import {REST_API} from '../config'
 import {Message} from 'iview'
 import store from '../store';
 
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 60000
 axios.defaults.baseURL = REST_API
 axios.defaults.showSpin = true  //请求加载loading效果
 axios.defaults.showMsg = false  //请求后是否弹出消息

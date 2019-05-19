@@ -1,14 +1,29 @@
 <template>
   <div class="root">
-    <Table :height="tableHeight" border :data="data" :columns="columns" :size="size"
+    <Table :height="tableHeight" :data="data" :columns="columns" :size="size"
            @on-row-click="onRowClick" @on-sort-change="onSortChange"
-           @on-row-dblclick="onRowDbClick"
+           @on-row-dblclick="onRowDbClick" 
+           @on-selection-change="onSelect"
            :highlight-row="highlightRow"/>
-    <div class="hyz-page">
+    <!-- <div class="hyz-page">
       <Page :total="total" :current="page" :page-size="pageSize" 
             show-sizer show-elevator show-total placement="top"
             @on-change="changePage"
             @on-page-size-change="pageSizeChange"	/>
+    </div> -->
+
+    <div class="hyz-page">
+      <Page
+        :total="total"
+        :current="page"
+        :page-size="pageSize"
+        show-elevator
+        show-total
+        size="small"
+        placement="top"
+        @on-change="changePage"
+        @on-page-size-change="pageSizeChange"
+      />
     </div>
   </div>
 </template>
@@ -69,7 +84,71 @@
       },
       onRowDbClick(v) {
         this.$emit('on-row-dblclick', v)
+      },
+      onSelect(selection,row){
+        this.$emit('on-select', selection,row)
       }
     }
   }
 </script>
+
+<style lang="less">
+.hyz-page {
+  margin: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  color: #50b5ecc;
+}
+.hyz-page .ivu-select {
+  position: relative;
+}
+.ivu-table .use-hand td {
+  cursor: pointer;
+}
+.ivu-table-header {
+  // background-color: #212b4b;
+  color: #50b5ecc;
+}
+.ivu-table-body{
+  color: #ccc;
+}
+.ivu-table {
+  background-color: rgba(33, 41, 72, 0.5);
+}
+.ivu-page.mini .ivu-page-total {
+  position: absolute;
+  left: 20px;
+}
+.ivu-page.mini .ivu-page-item {
+  margin: 0 3px;
+  background-color: transparent;
+  border: 1px solid #2a6893;
+}
+.ivu-page.mini .ivu-page-prev,
+.ivu-page.mini .ivu-page-next {
+  background-color: transparent;
+  margin: 0 5px;
+}
+.ivu-icon-ios-arrow-left:before {
+  // content: "\F33F";
+  color: #03a9f4;
+  font-size: 20px;
+  vertical-align: middle;
+}
+.ivu-icon-ios-arrow-right:before {
+  // content: "\F341";
+  color: #03a9f4;
+  font-size: 20px;
+  vertical-align: middle;
+}
+.ivu-page-item-active {
+  background-color: #03a9f4 !important;
+  border: 1px solid #03a9f4 !important;
+}
+.ivu-page.mini .ivu-page-options-elevator input {
+  background-color: #161941;
+  color: #50b5ecc;
+  border-radius: 2px;
+  border: 0;
+}
+</style>

@@ -4,10 +4,9 @@
       <img src="/static/logo.png">
       <!-- <div>{{$t('projectName')}}</div> -->
     </div>
-    
            <!-- v-if="isAdmin || authMenus.indexOf(item.name) > -1"> -->
     <div class="header-menu">
-      <div class="header-menu-item" 
+      <div class="header-menu-item"
            :class="{'header-menu-item-selected': activeMenu === item.name}"
            v-for="item in appMenus" :key="item.name" @click="letsgo(item)" >
         <Icon :type="item.icon"></Icon>
@@ -39,24 +38,24 @@
       </Menu>
 
       <div class="header-toolbar app-center">
-        <div class="header-icon app-center" 
+        <div class="header-icon app-center"
              :class="{'header-icon-selected': showType === 'msg'}"
              @click="toggleSlidePanel('msg')">
           <Badge count="12">
             <Icon type="ios-bell" size="24"></Icon>
           </Badge>
         </div>
-        <div class="header-icon app-center" 
+        <div class="header-icon app-center"
              :class="{'header-icon-selected': showType === 'history'}"
              @click="toggleSlidePanel('history')">
           <Icon type="android-time" size="22"></Icon>
         </div>
-        <div class="header-icon app-center" 
+        <div class="header-icon app-center"
              :class="{'header-icon-selected': showType === 'help'}"
              @click="toggleSlidePanel('help')">
           <Icon type="help-circled" size="22"></Icon>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -125,8 +124,8 @@ export default {
     font-size: 15px;
     width: 100%;
     // background-color: azure;
-    border-left: 1px solid #000;     
-    border-right: 1px solid #000; 
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
     display: flex;
     align-items: baseline;
     user-select: none;
@@ -161,8 +160,8 @@ export default {
     // margin-right: 16px;
     color: #ddd;
     padding: 10px 14px;
-    border-left: 1px solid #000;    
-    // background-color: aquamarine; 
+    border-left: 1px solid #000;
+    // background-color: aquamarine;
   }
 
   .avatar {

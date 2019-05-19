@@ -12,20 +12,22 @@
       >{{sd.name}}</DropdownItem>
     </DropdownMenu>
   </Dropdown>-->
-  <Select :class="{'textleft':textLeft}"
+  <Select
+    :class="{'textleft':textLeft}" 
+    :disabled="isdisabled"
     v-model="selectValue"
     @on-change="selectClick"
-    placeholder="aa"
+    placeholder="请选择"
     size="small"
-    style="width:200px"
+    :style="{'width':cswidth?cswidth:'200px'}"
   >
-    <Option v-for="item in selectDatas" :value="item.value" :key="item.value">{{ item.name }}</Option>
+    <Option v-for="item in selectDatas" :value="item" :key="item">{{ item }}</Option>
   </Select>
 </template>
 
 <script>
 export default {
-  props: ["selectDatas", "selectValue", "textLeft"],
+  props: ["selectDatas", "selectValue", "textLeft", "cswidth","isdisabled"],
   data() {
     return {
       // textLeft: false,

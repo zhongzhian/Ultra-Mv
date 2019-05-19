@@ -2,15 +2,17 @@
   <div>
     <app-header :showType="showType" @show-panel="onShowPanel"></app-header>
     <transition>
+
       <router-view :key="key" style="padding: 20px 10px;"></router-view>
-    </transition>
+    </transition>-->
   </div>
 </template>
 
 <script>
 import AppHeader from '@/components/layout/AppHeader';
+import HeaderMenu from '@/components/layout/HeaderMenu';
 export default {
-  components: {AppHeader},
+  components: {AppHeader,HeaderMenu},
   data() {
     return {
       showType: ''

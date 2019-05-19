@@ -12,12 +12,14 @@ import messages from './locale'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import BTable from './components/table/BTable.vue'
-
+import FTable from './components/table/FTable.vue'
 Vue.config.productionTip = false
 Vue.use(iView)
 Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
 Vue.component('BTable', BTable)
+Vue.component('FTable', FTable)
+// Vue.use(Antd)
 
 window._ = require('lodash')
 window.anime = require('animejs')

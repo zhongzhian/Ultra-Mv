@@ -2,8 +2,12 @@
 export const appRouter = {
   path: '/',
   name: 'root',
-  component: () => import('../views'),
+  component: () => import('../views/main.vue'),
   redirect: '/home',
+  meta: {
+    menuShow: false
+},
+
   children: [
     {
       path: 'home',
@@ -34,6 +38,13 @@ export const appRouter = {
           label: '专线监控',
           component: () => import('../views/slmm/monitor.vue')
         },
+        {
+          path: 'slcollector',
+          name: 'slcollector',
+          icon: 'ios-bell',
+          label: 'SLA采集管理',
+          component: () => import('../views/slmm/collector.vue')
+        },
       ]
     },
     {
@@ -42,6 +53,9 @@ export const appRouter = {
       icon: 'ios-bell',
       label: '服务质量监控',
       redirect: '/svqt/qosmonitor',
+      meta: {
+        menuShow: false
+      },
       component: () => import('../views/svqt'),
       children: [
         {
@@ -115,6 +129,9 @@ export const appRouter = {
           name: 'itapply',
           icon: 'ios-bell',
           label: 'IT基础监控申请',
+          meta: {
+            menuShow: false
+        },
           component: () => import('../views/apply/itapply.vue')
         },
       ]
@@ -133,6 +150,70 @@ export const appRouter = {
     //   label: '地图',
     //   component: () => import('../views/map'),
     // },
+    {
+      path: 'alarm',
+      name: 'alarm',
+      icon: 'ios-bell',
+      label: '告警',
+      redirect: '/alarm/activeAlarm',
+      component: () => import('../views/alarm'),
+      children: [
+        {
+          path: 'activeAlarm',
+          name: 'activeAlarm',
+          icon: 'ios-bell',
+          label: '当前告警',
+          component: () => import('../views/alarm/activeAlarm.vue')
+        },
+        {
+          path: 'historyAlarm',
+          name: 'historyAlarm',
+          icon: 'ios-bell',
+          label: '历史告警',
+          component: () => import('../views/alarm/historyAlarm.vue')
+        },
+      ]
+      
+    },
+    {
+      path: 'topo',
+      name: 'topo',
+      icon: 'ios-bell',
+      label: '拓扑',
+      component: () => import('../views/topo/topo.vue'),
+    },
+    {
+      path: 'pm',
+      name: 'pm',
+      icon: 'ios-bell',
+      label: '性能管理',
+      redirect: '/alarm/activeAlarm',
+      component: () => import('../views/pm'),
+      children: [
+        {
+          path: 'unicomPm',
+          name: 'unicomPm',
+          icon: 'ios-bell',
+          label: '联通设备性能管理',
+          component: () => import('../views/pm/unicomPm.vue')
+        },
+        {
+          path: 'innerPm',
+          name: 'innerPm',
+          icon: 'ios-bell',
+          label: '内网设备性能管理',
+          component: () => import('../views/pm/innerPm.vue')
+        },
+      ]
+      
+    },
+    {
+      path: 'bigView',
+      name: 'bigView',
+      icon: 'ios-bell',
+      label: '大屏',
+      component: () => import('../views/home/bigView'),
+    },
   ]
 }
 
