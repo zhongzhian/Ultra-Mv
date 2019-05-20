@@ -1,9 +1,14 @@
+const DOMAINPATH = 'http://39.104.229.21:58055/';
+//const BASEPATH = 'http://10.63.0.81:58055/mv';
 const BASEPATH = 'http://39.104.229.21:58055/mv';
 const SUBPATH = '/api';
-const NMSPATH = 'http://192.168.189.146:58085/nmsw';
+const NMSPATH = 'http://192.168.189.146:58085/nmsw'
+//const NMSPATH = 'http://10.63.0.81:58085/nmsw';
 const DEDICATEPATH = 'http://39.104.229.21:58055/dedicate';
 export default {
+  domainport: DOMAINPATH,
   basePath: BASEPATH + SUBPATH,
+  nmswPath:NMSPATH,
   login: {
     token: `/uaa/oauth/token`,
     account: `/account/v1/account/users/current`
@@ -28,11 +33,16 @@ export default {
     portInTop5: BASEPATH + SUBPATH + `/queryPortInTop5`,
     portOutTop5: BASEPATH + SUBPATH + `/queryPortOutTop5`,
 
+    queryActiveAlertList: BASEPATH + SUBPATH + `/getAlert`,//首页告警
+
     queryAllalert: BASEPATH + SUBPATH + `/queryAllalert`,//首页告警-2
     // portOutTop5: BASEPATH + SUBPATH + `/queryAllalert`,
 
-    queryActiveAlertList: NMSPATH + `/ActiveAlertViewAction!queryActiveAlertList.action`,//首页告警
+    //queryActiveAlertList: NMSPATH + `/ActiveAlertViewAction!queryActiveAlertList.action`,//首页告警
     queryAlertById: NMSPATH + `/alertview/queryAlertById.action`,//首页告警钻取，参数为  告警id
+
+    //新增首页输入输出速率
+    queryBandRate: BASEPATH + SUBPATH+`/queryBandRate`,
 
     addDedicateLine: DEDICATEPATH + `/addDedicateLine`,//添加
     dedicateExport: DEDICATEPATH + `/dedicateExport`,//导出
@@ -41,5 +51,6 @@ export default {
     editDedicateLine: DEDICATEPATH + `/editDedicateLine`,//修改
     queryDedicateLine: DEDICATEPATH + `/queryDedicateLine`,//查询专线
     importExcel: DEDICATEPATH + `/importExcel`,//导入excel
+
   }
 }

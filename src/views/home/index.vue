@@ -119,7 +119,12 @@
       </div>
       <div class="normal-panel fl" style="width:30%;">
         <div class="normal-panel-content" style="height:200px;">
-          <div class="normal-panel-title">数据流量(数据中心)</div>
+          <div class="normal-panel-title-charts">数据流量(数据中心)
+            <RadioGroup v-model="redionType" type="button" size="small" style="marginLeft:40px"   @on-change="inorout">
+              <Radio label="in">输入速率</Radio>
+              <Radio label="out">输出速率</Radio>     
+          </RadioGroup>
+          </div>
           <div id="appTop5Chart"></div>
         </div>
       </div>
@@ -379,6 +384,7 @@ export default {
   components: { comselect },
   data() {
     return {
+      redionType:'in',
       colorsArr: ["#25a23fcc", "#dd704ccc", "#346ee4cc"],
       count: 0,
       showAlarmDetail: false,
@@ -442,6 +448,7 @@ export default {
       top5switch: 0,
       top5Index: "2",
       top5Chart: null,
+      appTop5Chart:null,
       alarmCount: {
         total: 0,
         paidan: 0
@@ -613,7 +620,7 @@ export default {
     this.pieChart();
     this.kpiTop5();
     this.proviceChart();
-    this.appTop5();
+    this.appTop5('in');
     // this.setMapColor();
     this.alarmShow();
     this.setProvinceColor();
@@ -1145,6 +1152,8 @@ export default {
         //   "note": "北京房山地产"
         // }
         // ]
+
+        console.log("top5Chart",this.top5Chart)
         if (this.top5Chart) {
           this.top5Chart.changeData(result);
           // this.top5Chart.axis("ip", {
@@ -1452,9 +1461,15 @@ export default {
         chart.render();
       });
     },
-    appTop5() {
+    appTop5(type) {
+      console.log("type",type)
       var Util = G2.Util;
-      this.axios.get(`${API.index.dataCenter}`).then(result => {
+      //queryBandRate
+      
+       var apiurl =  apiurl= API.index.queryBandRate + "?inorout=" + type;
+      console.log("apiurl",apiurl)
+      //`${API.index.dataCenter}`  原来
+      this.axios.get(apiurl).then(result => {
         // console.log(`--------------${API.index.dataCenter}`,result);
         // [
         //   {
@@ -1462,31 +1477,72 @@ export default {
         //     "value": 0.23
         //   }
         // ]
-        var chart = new G2.Chart({
+
+        console.log("appTop5Chart",this.appTop5Chart)
+        if (this.appTop5Chart) {
+          this.appTop5Chart.changeData(result);
+                 
+        } else{
+
+       var chart = new G2.Chart({
           container: "appTop5Chart",
           forceFit: true,
-          height: 170,
+          height: 160,
           padding: ["auto", "auto", 40, "auto"]
         });
-        //var a =[{"ip":"172.19.10.250","dctime":"00:05","value":13.81},{"ip":"172.19.10.250","dctime":"00:15","value":12.17},{"ip":"172.19.10.250","dctime":"00:25","value":12.02},{"ip":"172.19.10.250","dctime":"00:35","value":12.12},{"ip":"172.19.10.250","dctime":"00:45","value":13.24},{"ip":"172.19.10.250","dctime":"00:55","value":12.28},{"ip":"172.19.10.250","dctime":"01:05","value":12.05},{"ip":"172.19.10.250","dctime":"01:15","value":12.06},{"ip":"172.19.10.250","dctime":"01:25","value":14.13},{"ip":"172.19.10.250","dctime":"01:35","value":12.61},{"ip":"172.19.10.250","dctime":"01:45","value":12.03},{"ip":"172.19.10.250","dctime":"01:55","value":11.48},{"ip":"172.19.10.250","dctime":"02:05","value":11.50},{"ip":"172.19.10.250","dctime":"02:15","value":13.79},{"ip":"172.19.10.250","dctime":"02:25","value":12.27},{"ip":"172.19.10.250","dctime":"02:35","value":10.84},{"ip":"172.19.10.250","dctime":"02:45","value":10.89},{"ip":"172.19.10.250","dctime":"02:55","value":10.68},{"ip":"172.19.10.250","dctime":"03:05","value":12.07},{"ip":"172.19.10.250","dctime":"03:15","value":11.15},{"ip":"172.19.10.250","dctime":"03:25","value":11.05},{"ip":"172.19.10.250","dctime":"03:35","value":10.66},{"ip":"172.19.10.250","dctime":"03:45","value":10.66},{"ip":"172.19.10.250","dctime":"03:55","value":11.53},{"ip":"172.19.10.250","dctime":"04:05","value":11.15},{"ip":"172.19.10.250","dctime":"04:15","value":11.51},{"ip":"172.19.10.250","dctime":"04:25","value":11.44},{"ip":"172.19.10.250","dctime":"04:35","value":11.76},{"ip":"172.19.10.250","dctime":"04:45","value":11.04},{"ip":"172.19.10.250","dctime":"04:55","value":23.14},{"ip":"172.19.10.250","dctime":"05:05","value":10.59},{"ip":"172.19.10.250","dctime":"05:15","value":10.99},{"ip":"172.19.10.250","dctime":"05:25","value":11.61},{"ip":"172.19.10.250","dctime":"05:35","value":10.28},{"ip":"172.19.10.250","dctime":"05:45","value":10.63},{"ip":"172.19.10.250","dctime":"05:55","value":10.48},{"ip":"172.19.10.250","dctime":"06:05","value":11.43},{"ip":"172.19.10.250","dctime":"06:15","value":10.40},{"ip":"172.19.10.250","dctime":"06:25","value":9.86},{"ip":"172.19.10.250","dctime":"06:35","value":10.34},{"ip":"172.19.10.250","dctime":"06:45","value":10.24},{"ip":"172.19.10.250","dctime":"06:55","value":10.63},{"ip":"172.19.10.250","dctime":"07:05","value":10.44},{"ip":"172.19.10.250","dctime":"07:15","value":10.58},{"ip":"172.19.10.250","dctime":"07:25","value":9.95},{"ip":"172.19.10.250","dctime":"07:35","value":10.13},{"ip":"172.19.10.250","dctime":"07:45","value":11.24},{"ip":"172.19.10.250","dctime":"07:55","value":10.07},{"ip":"172.19.10.250","dctime":"08:05","value":10.13},{"ip":"172.19.10.250","dctime":"08:15","value":11.03},{"ip":"172.19.10.250","dctime":"08:25","value":12.40},{"ip":"172.19.10.250","dctime":"08:35","value":11.00},{"ip":"172.19.10.250","dctime":"08:45","value":15.13},{"ip":"172.19.10.250","dctime":"08:55","value":11.79}]
+      
         chart.source(result);
-        chart.scale("value", {
-          min: 0
-        });
+        // chart.scale("value", {
+        //   alias: '输入速率',
+        //   min: 0
+        // });
+        //   chart.scale("ssvalue", {
+        //   alias: '输出速率',
+        //   min: 0
+        // });
         chart.scale("dctime", {
           range: [0, 1],
           tickCount: 10
         });
+        
+
+       
         chart.axis("value", {
+          position:'left',
           label: {
             textStyle: {
               fill: "#9798b8" // 文本颜色
             },
             formatter: val => {
-              return val + "M";
+              return val + "Mbs";
             }
           }
         });
+        //  chart.axis("ssvalue", {
+        //   position:'right',
+        //    title: {
+        //     autoRotate: 'false', // 是否需要自动旋转，默认为 true
+        //     offset: 60, // 数值，设置坐标轴标题距离坐标轴线的距离
+        //     // 设置标题的文本样式
+        //     textStyle: {
+        //       textAlign: 'middle', // 文本对齐方向，可取值为： start middle end
+        //       fill: '#fff', // 文本的颜色
+        //       fontSize: '12', // 文本大小
+        //       // fontWeight: 'bold', // 文本粗细
+        //     //  rotate: 30, // 文本旋转角度，以角度为单位，仅当 autoRotate 为 false 时生效
+        //       textBaseline: 'top' // 文本基准线，可取 top middle bottom，默认为middle
+        //     },
+        //     position: 'center' // 标题的显示位置（相对于坐标轴线），可取值为 start center end
+        //   },
+        //   label: {
+        //     textStyle: {
+        //       fill: "#9798b8" // 文本颜色
+        //     },
+        //     formatter: val => {
+        //       return val + "Mbs";
+        //     }
+        //   }
+        // });
         chart.axis("dctime", {
           label: {
             // offset:10,
@@ -1504,6 +1560,8 @@ export default {
             // }
           }
         });
+
+         
         chart.tooltip({
           crosshairs: {
             type: "line"
@@ -1580,8 +1638,48 @@ export default {
           .style({
             lineWidth: 2
           });
+
+        // //新加右侧y周
+        //   chart
+        //   .line()
+        //   .position("dctime*ssvalue")
+        //   .color("ip")
+        //   .size("ip", function(val) {
+        //     // if (val === 'China') {
+        //     //   return 4;
+        //     // }
+        //     return 2;
+        //   })
+        //   .opacity("ip", function(val) {
+        //     // if (val === 'China') {
+        //     //   return 1;
+        //     // }
+        //     return 0.7;
+        //   });
+        // chart
+        //   .point()
+        //   .position("dctime*ssvalue")
+        //   .color("ip")
+        //   .size("ip", function(val) {
+        //     // if (val === 'China') {
+        //     //   return 4;
+        //     // }
+        //     return 0;
+        //   })
+        //   .style({
+        //     lineWidth: 2
+        //   });
+
+
         chart.render();
+        this.appTop5Chart=chart;
+        }
+        
       });
+    },
+    inorout(e){
+      console.log("^^^^^^^^^^^^^^^^^^^^^^",e)
+      this.appTop5(e)
     },
     alarmShow() {
       let _this = this;
@@ -1871,6 +1969,15 @@ export default {
       cursor: pointer;
     }
   }
+ 
+}
+ .normal-panel-title-charts {
+    height: 50px;
+    display: flex;
+    line-height: 50px;
+    padding: 0 15px;
+    font-size: 14px;
+  
 }
 .home-table-condition-openbtn {
   text-align: center;

@@ -1,6 +1,9 @@
 <template>
   <div class="view-container">
-    <div class="view-header">asdfasdf</div>
+    <div class="view-header">
+      <div style="padding-top:5px;">广东联通MPLS VPN 智能网管</div>
+      <div style="font-size:14px;opacity:0.7;line-height:14px;"><Icon style="margin-right:10px;" type="ios-clock-outline" /><Time :time="nowtime" type="datetime" :interval="1"/></div>
+    </div>
     <div class="view-content">
       <table class="view-table" cellspacing="0" cellpadding="0">
         <tr>
@@ -57,7 +60,9 @@
             </div>
             <div class="view-tddiv" style="height:40%;">
               <div class="view-tddiv-title">告警类型数量</div>
-              <div class="view-tddiv-content"></div>
+              <div class="view-tddiv-content">
+                <div id="proviceChart"></div>
+              </div>
             </div>
           </td>
           <td class="view-td3">
@@ -65,14 +70,18 @@
               <div class="view-tddiv-title">告警统计</div>
               <div class="view-tddiv-content">
                 <div id="alarmChart"></div>
-                <div style="top:240px;" class="map-panel-mainkpis">
+                <div style="top:170px;" class="map-panel-mainkpis">
                   <div class="leftdiv">
-                    活动
-                    <span style="font-size:20px;color:#73fbfd;margin-left:20px;">{{alarmCount.total}}</span>
+                    <div class="leftdiv-name">告警总数</div>
+                    <div class="leftdiv-value">{{alarmCount.total}}</div>
+                    <!-- 活动
+                    <span style="font-size:20px;color:#73fbfd;margin-left:20px;">{{alarmCount.total}}</span> -->
                   </div>
                   <div class="rightdiv">
-                    已派单
-                    <span style="font-size:20px;color:#eb3223;margin-left:20px;">{{alarmCount.paidan}}</span>
+                    <div class="leftdiv-name">告警总数</div>
+                    <div class="leftdiv-value">{{alarmCount.paidan}}</div>
+                    <!-- 已派单
+                    <span style="font-size:20px;color:#eb3223;margin-left:20px;">{{alarmCount.paidan}}</span> -->
                   </div>
                 </div>
               </div>
@@ -105,6 +114,7 @@ export default {
   components: { comselect },
   data() {
     return {
+      nowtime:new Date(),
       top5Datas: [
         [
           {
@@ -170,12 +180,84 @@ export default {
     // this.setRow1Kpis();
     this.pieChart();
     this.kpiTop5();
-    // this.proviceChart();
+    this.proviceChart();
     // this.appTop5();
     // this.alarmShow();
     // this.setProvinceColor();
   },
   methods: {
+    proviceChart() {
+      var data = [];
+
+      this.axios.get(`${API.index.queryLinksPro}`).then(result => {
+        let maxValue = 0;
+        for (var r of result) {
+          // console.log("r",r)
+          data.push({
+            company: "已开通",
+            type: r.province,
+            value: r.monitornums
+          });
+          data.push({
+            company: "未开通",
+            type: r.province,
+            value: r.nomonitornums
+          });
+          maxValue = Math.max(r.monitornums, r.monitornums, maxValue);
+        }
+        var chart = new G2.Chart({
+          container: "proviceChart",
+          forceFit: true,
+          height: 200,
+          padding: ["auto", "auto", 70, "auto"]
+        });
+        chart.source(data);
+        chart.scale("value", {
+          alias: "占比（%）",
+          max: maxValue,
+          min: 0,
+          tickCount: 4
+        });
+        chart.axis("type", {
+          label: {
+            textStyle: {
+              fill: "#9798b8"
+            }
+          },
+          tickLine: {
+            alignWithLabel: false,
+            length: 0
+          }
+        });
+
+        chart.axis("value", {
+          label: {
+            textStyle: {
+              fill: "#9798b8"
+            }
+          },
+          title: {
+            offset: 50
+          }
+        });
+        chart.legend({
+          position: "top-right",
+          marker: "circle"
+        });
+        chart
+          .interval()
+          .position("type*value")
+          .color("company")
+          .opacity(1)
+          .adjust([
+            {
+              type: "dodge",
+              marginRatio: 1 / 32
+            }
+          ]);
+        chart.render();
+      });
+    },
     changeTop5(s) {
       // console.log(s);
       this.top5Index = s.key;
@@ -291,7 +373,7 @@ export default {
         var chart = new G2.Chart({
           container: "alarmChart",
           forceFit: true,
-          height: 250,
+          height: 220,
           padding: [20, 0, 40, 0]
         });
         chart.source(dv, {
@@ -411,25 +493,38 @@ export default {
   // right: 20px;
   // top: 40px;
   height: 40px;
-  text-align: center;
-  font-size: 13px;
-  color: #9798b8;
+    text-align: center;
+    font-size: 13px;
+    color: #9798b8;
+    position: absolute;
+    left: 20px;
+    right: 20px;
 }
 
 .map-panel-mainkpis .leftdiv {
   position: absolute;
-  left: 50%;
-  width: 150px;
-  margin-left: -170px;
+  left: 10%;
   text-align: right;
+  width: 80px;
+}
+
+.leftdiv-name,.leftdiv-value{
+  text-align: center;
+}
+.leftdiv-value{
+  background: url("/static/images/value-s.png") no-repeat;
+  background-size: 100% 100%;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .map-panel-mainkpis .rightdiv {
   position: absolute;
-  left: 50%;
-  width: 150px;
+  right: 10%;
+  /* width: 150px; */
   margin-left: 20px;
   text-align: left;
+  width: 80px;
 }
 
 .view-container {
@@ -451,6 +546,7 @@ export default {
   background: url("/static/images/view-head.png") no-repeat;
   background-size: 100% 100%;
   text-align: center;
+  font-size: 30px;
 }
 .view-content {
   position: absolute;

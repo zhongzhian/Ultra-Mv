@@ -711,7 +711,7 @@
                 <li>
                   <!-- @click="downloadTemplate" -->
                   <a
-                    v-bind:href="'http://39.104.229.21:58055/dedicate/downTemplate?name='+downloadType"
+                    v-bind:href="'http://39.104.229.21:58055/dedicate/downTemplate?name='+downloadTypeMap[downloadType]"
                   >
                     <Button size="small" class="condition-btn">下载</Button>
                   </a>
@@ -719,7 +719,7 @@
               </ul>
             </div>
             <div class="slmm-table-condition normal-form-div">
-              <ul class="slmm-table-condition-ul normal-form-ul" style="height:140px;">
+              <ul class="slmm-table-condition-ul normal-form-ul" style="height:200px;">
                 <li style="width:80%;">
                   <FormItem label="资源导入">
                     <Upload
@@ -978,6 +978,10 @@ export default {
         ]
       },
       downloadType: "联通专线导入模板",
+      downloadTypeMap:{
+        "联通专线导入模板":"unicom_dedicatedLine",
+        "内网设备导入模板":"intranet_equipment"
+      },
       uploadAction: API.index.importExcel,
       uploadData: {
         filename: null
@@ -992,9 +996,9 @@ export default {
         SNMP版本: "SNMPVER",
         共同体名: "COMMUNITY",
 
-        CE设备IP: "PRODUCTNUMBER",
-        CE设备端口: "PRODUCTNUMBER",
-        PE设备端口: "PRODUCTNUMBER"
+        CE设备IP: "A_DEV_IP",
+        CE设备端口: "A_DEV_PORT",
+        PE设备端口: "Z_DEV_PORT"
       },
       exportCols1: [],
       exportCols2: [],
@@ -1002,11 +1006,15 @@ export default {
     };
   },
   mounted() {
+    this.getCUSTOMERADDRESS();
     this.setProvince();
     this.getTableDatas();
     this.getCountry();
   },
   methods: {
+    getCUSTOMERADDRESS(){
+      this.newDedicateObj.CUSTOMERADDRESS = "万科集团";
+    },
     handleSubmit(name, type) {
       this.$refs[name].validate(valid => {
         if (valid) {
@@ -1063,6 +1071,9 @@ export default {
       paramarr.push("A_DEV_PORT=" + this.newDedicateObj.A_DEV_PORT);
       paramarr.push("A_DEV_MASK=" + this.newDedicateObj.A_DEV_MASK);
 
+      if (this.newDedicateObj.CUSTOMERADDRESS) {
+        paramarr.push("CUSTOMERADDRESS=" + this.newDedicateObj.CUSTOMERADDRESS);
+      }
       if (this.newDedicateObj.NOTE) {
         paramarr.push("NOTE=" + this.newDedicateObj.NOTE);
       }
@@ -1290,13 +1301,21 @@ export default {
       if (paramarr.length > 0) {
         params = "?" + paramarr.join("&");
       }
+
       this.axios.get(`${API.index.dedicateExport + params}`).then(result => {
         console.log(API.index.dedicateExport + params, result);
-        // if (result.result === "success") {
-        //   this.$Message.success("导出成功");
-        // } else {
-        //   this.$Message.error("导出失败");
-        // }
+        if(result){
+          var url = `${API.domainport + result.result}`;
+          console.log("url", url);
+          let iframe = document.createElement('iframe')
+          iframe.style.display = 'none'
+          iframe.src = url
+          iframe.onload = function () {
+            document.body.removeChild(iframe)
+          }
+          document.body.appendChild(iframe)
+          this.$Message.success("导出成功");
+        }
       });
     },
     setProvince() {
@@ -1334,9 +1353,20 @@ export default {
     },
     downloadTemplate() {
       if (this.downloadType) {
-        let params = "?name=" + this.downloadType;
+        let params = "?name=" + this.downloadTypeMap[this.downloadType];
         this.axios.get(`${API.index.downTemplate + params}`).then(result => {
-          console.log(API.index.downTemplate + params, result);
+          var blob = new Blob([result], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'})
+          var url = window.URL.createObjectURL(blob);
+          var aLink = document.createElement("a");
+          aLink.style.display = "none";
+          aLink.href = url;
+          aLink.setAttribute("download", this.downloadTypeMap[this.downloadType]+".xlsx");
+          document.body.appendChild(aLink);
+          aLink.click();
+          document.body.removeChild(aLink); //下载完成移除元素
+          window.URL.revokeObjectURL(url); //释放掉blob对象
+
+          // console.log(API.index.downTemplate + params, result);
           // if (result.result === "success") {
           //   this.$Message.success("删除成功");
           // } else {
