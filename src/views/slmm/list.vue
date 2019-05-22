@@ -719,7 +719,7 @@
               </ul>
             </div>
             <div class="slmm-table-condition normal-form-div">
-              <ul class="slmm-table-condition-ul normal-form-ul" style="height:200px;">
+              <ul class="slmm-table-condition-ul normal-form-ul" style="height:250px;">
                 <li style="width:80%;">
                   <FormItem label="资源导入">
                     <Upload
@@ -735,6 +735,11 @@
                         <p>点击或者拖拽上传</p>
                       </div>
                     </Upload>
+                    <div v-if="uploadResult" class="slmm-upload-result-div">
+                      <span>总计导入：{{uploadResult.total || '0'}}条</span>
+                      <span>成功：{{uploadResult.success_count || '0'}}条</span>
+                      <span>失败：{{uploadResult.failture_count || '0'}}条</span>
+                    </div>
                   </FormItem>
                 </li>
               </ul>
@@ -986,6 +991,7 @@ export default {
       uploadData: {
         filename: null
       },
+      uploadResult:null,
       exportMap: {
         专线编号: "PRODUCTNUMBER",
         专线名称: "PRODUCTNUMBER",
@@ -1265,11 +1271,23 @@ export default {
     },
     baforeUpload(file) {
       console.log("baforeUpload-file", file);
-      this.uploadData.filename = file;
+      if(file.name === "联通专线导入模板.xlsx" || file.name === "内网设备导入模板.xlsx" ){
+        this.uploadData.filename = file;
+      }else{
+        this.$Message.error("请选择正确的文档");
+        return false;
+      }
     },
     uploadSuccess(res, file) {
       console.log("uploadSuccess-file", file);
-      this.$Message.success("导入成功");
+      if(file.response.total){
+        this.uploadResult = file.response;
+        this.$Message.success("导入成功");
+      }
+      // 2019.05.22 付总：目前需求只要总条数，成功条数，失败条数。对异常的情况没有定义
+      // else{
+      //   this.$Message.error("导入失败");
+      // }
     },
     importDedicate() {
       this.showImport = true;
@@ -1659,6 +1677,14 @@ export default {
   padding: 10px;
   line-height: 20px;
   width: 50%;
+}
+
+.slmm-upload-result-div{
+  padding:10px;
+  text-align: center;
+}
+.slmm-upload-result-div span{
+  margin-right:20px;
 }
 
 </style>
