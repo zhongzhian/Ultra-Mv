@@ -2,8 +2,8 @@
   <div>
     <app-header :showType="showType" @show-panel="onShowPanel"></app-header>
     <transition>
-
-      <router-view :key="key" style="padding: 20px 10px;"></router-view>
+ <!-- style="padding: 20px 10px;" -->
+      <router-view :key="key"></router-view>
     </transition>-->
   </div>
 </template>

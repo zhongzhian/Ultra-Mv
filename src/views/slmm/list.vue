@@ -143,7 +143,8 @@
                     <Input
                       v-model="newDedicateObj.CUSTOMERADDRESS"
                       size="small"
-                      style="width: 400px"
+                      style="width: 400px" 
+                      disabled="disabled"
                     />
                   </FormItem>
                 </li>
@@ -370,7 +371,8 @@
                     <Input
                       v-model="dedicateObj.CUSTOMERADDRESS"
                       size="small"
-                      style="width: 400px"
+                      style="width: 400px" 
+                      disabled="disabled"
                     />
                   </FormItem>
                 </li>
@@ -827,6 +829,21 @@
         </Form>
       </div>
     </div>
+
+    <Modal v-model="showDelete" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+            <Icon type="ios-information-circle"></Icon>
+            <span>删除提示</span>
+        </p>
+        <div style="text-align:center">
+            <p v-if="cantDelete">已监控和申请中的资源不允许直接删除，若需要删除此类资源，请先提交监控变更申请</p>
+            <p v-if="!cantDelete">确定删除所选资源吗？</p>
+        </div>
+        <div slot="footer">
+          <Button v-if="!cantDelete" type="error" size="large" long :loading="modal_loading" @click="delSubmit">删除</Button>
+          <Button v-if="cantDelete" size="large" long :loading="modal_loading" @click="showDelete = false">确认</Button>
+        </div>
+    </Modal>
   </div>
 </template>
 
@@ -905,6 +922,8 @@ export default {
       showEditType: "", // single,mul
       showImport: false,
       showExport: false,
+      showDelete: false,
+      cantDelete: false,
       snmpVersions: ["V1", "V2", "V3"],
       newCountrys: [],
       newProvinces: [],
@@ -1019,7 +1038,12 @@ export default {
   },
   methods: {
     getCUSTOMERADDRESS(){
-      this.newDedicateObj.CUSTOMERADDRESS = "万科集团";
+      this.axios.get(`${API.index.getappname}`).then(result => {
+        if (result.appname) {
+          this.newDedicateObj.CUSTOMERADDRESS = result.appname;
+        }
+      });
+      // this.newDedicateObj.CUSTOMERADDRESS = "万科集团";
     },
     handleSubmit(name, type) {
       this.$refs[name].validate(valid => {
@@ -1088,7 +1112,7 @@ export default {
         params = "?" + paramarr.join("&");
       }
       this.axios.get(`${API.index.addDedicateLine + params}`).then(result => {
-        console.log(API.index.addDedicateLine + params, result);
+        // console.log(API.index.addDedicateLine + params, result);
         if (result.result === "success") {
           this.$Message.success("添加成功");
           this.showAddNew = false;
@@ -1250,6 +1274,13 @@ export default {
         this.$Message.error("请先选择要删除的专线");
         return;
       }
+      let filters = this.selection.filter(s => {
+        return (s.MONTIORSTATE === '已监控' || s.MONTIORSTATE === '申请中')
+      });
+      this.cantDelete = (filters.length>0)
+      this.showDelete = true;
+    },
+    delSubmit(){
       let params = "",
         paramarr = [],
         ids = [];
@@ -1263,6 +1294,7 @@ export default {
         console.log(API.index.delDedicateLine + params, result);
         if (result.result === "success") {
           this.$Message.success("删除成功");
+          this.showDelete = false;
           this.getTableDatas();
         } else {
           this.$Message.error("删除失败");

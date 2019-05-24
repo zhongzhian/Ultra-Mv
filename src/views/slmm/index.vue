@@ -1,7 +1,7 @@
 <template>
   <div style="display:flex;">
     <!-- <app-menu :value="menuList" :module="module" @toggle="onToggle"></app-menu> -->
-    <router-view id="indexView" class="app-container" :class="width"></router-view>
+    <router-view id="indexView" class="app-container" style="padding:0;" :class="width"></router-view>
   </div>
 </template>
 

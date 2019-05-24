@@ -17,6 +17,7 @@ export default {
     getcountry: BASEPATH + SUBPATH + `/getcountry`,//申请中的专线数量
     getprovince: BASEPATH + SUBPATH + `/getprovince`,//申请中的专线数量
     getcity: BASEPATH + SUBPATH + `/getcity`,//申请中的专线数量
+    getappname: BASEPATH + SUBPATH + `/getappname`,//获取专线mv客户名称
 
     applylinkcounts: BASEPATH + SUBPATH + `/applylinkcounts`,//申请中的专线数量
     getbrokenlinkcounts: BASEPATH + SUBPATH + `/getbrokenlinkcounts`,//中断专线数量
